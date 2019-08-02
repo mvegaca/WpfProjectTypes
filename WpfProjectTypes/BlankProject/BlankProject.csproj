@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.0.0-alpha0455" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="3.0.0-alpha0189" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0-preview7.19362.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoreProject\CoreProject.csproj" />
+  </ItemGroup>
+
+</Project>

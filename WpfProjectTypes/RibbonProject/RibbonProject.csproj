@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\Bold.png" />
+    <None Remove="Images\Italic.png" />
+    <None Remove="Images\PasteFormating.png" />
+    <None Remove="Images\PasteImage.png" />
+    <None Remove="Images\PasteSourceFormating.png" />
+    <None Remove="Images\PasteText.png" />
+    <None Remove="Images\PasteTextOnly.png" />
+    <None Remove="Images\Underline.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fluent.Ribbon" Version="7.0.0-alpha0661" />
+    <PackageReference Include="MahApps.Metro" Version="2.0.0-alpha0455" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="3.0.0-alpha0189" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0-preview7.19362.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoreProject\CoreProject.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Bold.png" />
+    <Resource Include="Images\Italic.png" />
+    <Resource Include="Images\PasteFormating.png" />
+    <Resource Include="Images\PasteImage.png" />
+    <Resource Include="Images\PasteSourceFormating.png" />
+    <Resource Include="Images\PasteText.png" />
+    <Resource Include="Images\PasteTextOnly.png" />
+    <Resource Include="Images\Underline.png" />
+  </ItemGroup>
+
+</Project>

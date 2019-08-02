@@ -1,0 +1,128 @@
+﻿<controls:MetroWindow
+    x:Class="RibbonProject.Views.ShellWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:Fluent="urn:fluent-ribbon"    
+    mc:Ignorable="d"
+    ShowSystemMenuOnRightClick="False"
+    Loaded="MetroWindow_Loaded"
+    Title="RibbonProject" Height="450" Width="800">
+    <!--
+    ShowTitleBar="True"
+    -->
+
+    <controls:MetroWindow.TitleTemplate>
+        <DataTemplate>
+            <Fluent:RibbonTitleBar x:Name="RibbonTitleBar" Header="{Binding Path=Title, RelativeSource={RelativeSource AncestorType=controls:MetroWindow}}" />
+        </DataTemplate>
+    </controls:MetroWindow.TitleTemplate>
+
+    <controls:MetroWindow.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Fluent:Ribbon Grid.Row="0">
+                <!--Backstage-->
+                <Fluent:Ribbon.Menu>
+                    <Fluent:Backstage>
+                        <Fluent:BackstageTabControl>
+                            <Fluent:BackstageTabItem Header="New" />
+                            <Fluent:BackstageTabItem Header="Print" />
+                            <Fluent:Button Header="Blue" />
+                        </Fluent:BackstageTabControl>
+                    </Fluent:Backstage>
+                </Fluent:Ribbon.Menu>
+
+                <!--QuickAccessItems-->
+                <Fluent:Ribbon.QuickAccessItems>
+                    <Fluent:QuickAccessMenuItem IsChecked="true" Header="Holaaa">
+                        <Fluent:Button Header="Pink" />
+                    </Fluent:QuickAccessMenuItem>
+
+                    <!--You Can Just Bind with Any Control-->
+                    <Fluent:QuickAccessMenuItem Target="{Binding ElementName=buttonGreen}" />
+                </Fluent:Ribbon.QuickAccessItems>
+
+                <!--Tabs-->
+                <Fluent:RibbonTabItem Header="Home" Fluent:KeyTip="H">
+                    <Fluent:RibbonGroupBox Header="Font" State="Large" Grid.IsSharedSizeScope="True" MinWidth="150">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="2">
+                            <Fluent:ToggleButton
+                                Header="Bold"
+                                SizeDefinition="Small"
+                                Margin="2"
+                                Icon="Images\Bold.png" />
+                            <Fluent:ToggleButton
+                                Header="Italic"
+                                SizeDefinition="Small"
+                                Margin="2"
+                                Icon="Images\Italic.png" />
+                            <Fluent:ToggleButton
+                                Header="Underline"
+                                SizeDefinition="Small"
+                                Margin="2"
+                                Icon="Images\Underline.png" />
+                        </StackPanel>
+                        <Fluent:ComboBox
+                            SelectedIndex="0"
+                            Margin="2"
+                            HorizontalAlignment="Left"
+                            MinWidth="50">
+                            <Fluent:ComboBox.ToolTip>
+                                <Fluent:ScreenTip
+                                    Title="Font Size"
+                                    HelpTopic="Help for Font Size"
+                                    Text="Help for Font Size" />
+                            </Fluent:ComboBox.ToolTip>
+                            <TextBlock Text="8" />
+                            <TextBlock Text="9" />
+                            <TextBlock Text="10" />
+                            <TextBlock Text="11" />
+                            <TextBlock Text="12" />
+                        </Fluent:ComboBox>
+                    </Fluent:RibbonGroupBox>
+                    <Fluent:RibbonGroupBox Header="Clipboard" State="Large" MinWidth="150">
+                        <Fluent:SplitButton
+                            Header="Paste text"
+                            Icon="Images\PasteText.png"
+                            LargeIcon="Images\PasteText.png">
+                            <Fluent:SplitButton.Items>
+                                <Fluent:MenuItem
+                                    Header="Paste formating"
+                                    Icon="Images\PasteFormating.png" />
+                                <Fluent:MenuItem
+                                    Header="Paste image"
+                                    Icon="Images\PasteImage.png" />
+                                <Fluent:MenuItem
+                                    Header="Paste text only"
+                                    Icon="Images\PasteTextOnly.png" />
+                            </Fluent:SplitButton.Items>
+                        </Fluent:SplitButton>
+                    </Fluent:RibbonGroupBox>
+                    <Fluent:RibbonGroupBox Header="Paragraph" State="Large" MinWidth="150" />
+                    <Fluent:RibbonGroupBox Header="Styles" State="Large" MinWidth="150" />
+                </Fluent:RibbonTabItem>
+                <Fluent:RibbonTabItem Header="Insert" Fluent:KeyTip="N" />
+                <Fluent:RibbonTabItem Header="Design" Fluent:KeyTip="G" />
+                <Fluent:RibbonTabItem Header="Layout" Fluent:KeyTip="P" />
+                <Fluent:RibbonTabItem Header="References" Fluent:KeyTip="S" />
+                <Fluent:RibbonTabItem Header="Mailings" Fluent:KeyTip="M" />
+                <Fluent:RibbonTabItem Header="Review" Fluent:KeyTip="R" />
+                <Fluent:RibbonTabItem Header="View" Fluent:KeyTip="W" />
+                <Fluent:RibbonTabItem Header="Help" Fluent:KeyTip="Y" />
+            </Fluent:Ribbon>
+            <Frame
+                Grid.Row="1"
+                x:Name="shellFrame"
+                Focusable="False"
+                NavigationUIVisibility="Hidden" />
+        </Grid>
+    </controls:MetroWindow.Content>
+</controls:MetroWindow>
+
+

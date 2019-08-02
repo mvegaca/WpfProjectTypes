@@ -1,0 +1,47 @@
+﻿<controls:MetroWindow
+    x:Class="MenuBarProject.Views.ShellWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    mc:Ignorable="d"
+    ShowTitleBar="True"
+    Title="MenuBarProject" Height="450" Width="800">
+    <controls:MetroWindow.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Menu>
+                <MenuItem Header="File">
+                    <MenuItem Header="Settings" Command="{Binding SecondaryFrameNavigateCommand}" CommandParameter="MenuBarProject.Views.SettingsPage" />
+                    <Separator />
+                    <MenuItem Header="Exit" Command="{Binding ExitCommand}" />
+                </MenuItem>
+                <MenuItem Header="Views">
+                    <MenuItem Header="Main" Command="{Binding MainFrameNavigateCommand}" CommandParameter="MenuBarProject.Views.MainPage" />
+                    <MenuItem Header="Secondary" Command="{Binding MainFrameNavigateCommand}" CommandParameter="MenuBarProject.Views.SecondaryPage" />
+                </MenuItem>
+            </Menu>
+            <controls:SplitView
+                Grid.Row="1"
+                x:Name="splitView"
+                PanePlacement="Right"
+                OpenPaneLength="400">
+                <controls:SplitView.Pane>
+                    <Frame
+                        Focusable="False"
+                        NavigationUIVisibility="Hidden"
+                        Background="{DynamicResource MahApps.Brushes.White}"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Black}"
+                        BorderThickness="1,1,0,0" />
+                </controls:SplitView.Pane>
+                <controls:SplitView.Content>
+                    <Frame Focusable="False" NavigationUIVisibility="Hidden" />
+                </controls:SplitView.Content>
+            </controls:SplitView>
+        </Grid>
+    </controls:MetroWindow.Content>
+</controls:MetroWindow>
