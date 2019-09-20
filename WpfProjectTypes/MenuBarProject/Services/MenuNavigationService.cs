@@ -23,7 +23,10 @@ namespace MenuBarProject.Services
         }
 
         public void Initialize(IShellWindow shellWindow)
-            => _shellWindow = shellWindow;
+        {
+            _shellWindow = shellWindow;
+            _navigationService.Initialize(shellWindow.GetNavigationFrame());
+        }
 
         public void UpdateView(string viewModelName, object extraData = null)
             => _navigationService.Navigate(viewModelName, extraData, true);
@@ -35,6 +38,7 @@ namespace MenuBarProject.Services
         {
             var pageType = _navigationService.GetPageType(viewModelName);
             var frame = _shellWindow.GetRightPaneFrame();
+            frame.Navigated += OnNavigated;
             if (frame.Content?.GetType() != pageType || (extraData != null && !extraData.Equals(_lastExtraDataUsed)))
             {
                 var page = _serviceProvider.GetService(pageType);
@@ -51,6 +55,7 @@ namespace MenuBarProject.Services
                     _lastExtraDataUsed = extraData;
                 }
             }
+
             _shellWindow.OpenRightPane();
         }
 
@@ -67,7 +72,7 @@ namespace MenuBarProject.Services
             };
             frame.Navigated += OnNavigated;
             window.Closed += OnWindowClosed;
-            window.Content = frame;            
+            window.Content = frame;
             var pageType = _navigationService.GetPageType(viewModelName);
             var page = _serviceProvider.GetService(pageType);
             window.Show();

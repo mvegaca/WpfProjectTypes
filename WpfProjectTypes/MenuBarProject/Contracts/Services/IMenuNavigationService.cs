@@ -1,5 +1,4 @@
-﻿using System.Windows.Controls;
-using MenuBarProject.Contracts.Views;
+﻿using MenuBarProject.Contracts.Views;
 
 namespace MenuBarProject.Contracts.Services
 {

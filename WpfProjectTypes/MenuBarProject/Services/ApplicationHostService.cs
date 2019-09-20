@@ -9,19 +9,18 @@ namespace MenuBarProject.Services
 {
     internal class ApplicationHostService : IHostedService
     {
+        private IMenuNavigationService _menuNavigationService;
         private IThemeSelectorService _themeSelectorService;
         private IPersistAndRestoreService _persistAndRestoreService;
-        private INavigationService _navigationService;
         private IShellWindow _shellWindow;
 
-        public ApplicationHostService(IThemeSelectorService themeSelectorService, IPersistAndRestoreService persistAndRestoreService, INavigationService navigationService, IMenuNavigationService menuNavigationService, IShellWindow shellWindow)
+        public ApplicationHostService(IThemeSelectorService themeSelectorService, IPersistAndRestoreService persistAndRestoreService, IMenuNavigationService menuNavigationService, IShellWindow shellWindow)
         {
             _themeSelectorService = themeSelectorService;
             _persistAndRestoreService = persistAndRestoreService;
-            _navigationService = navigationService;
             _shellWindow = shellWindow;
-            menuNavigationService.Initialize(shellWindow);
-            _navigationService.Initialize(_shellWindow.GetNavigationFrame());
+            _menuNavigationService = menuNavigationService;
+            _menuNavigationService.Initialize(_shellWindow);
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
@@ -30,7 +29,7 @@ namespace MenuBarProject.Services
             await InitializeAsync();
 
             _shellWindow.ShowWindow();
-            _navigationService.Navigate(typeof(MainViewModel).FullName);
+            _menuNavigationService.Navigate(typeof(MainViewModel).FullName);
 
             // Tasks after activation
             await StartupAsync();

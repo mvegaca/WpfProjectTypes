@@ -40,8 +40,8 @@ namespace MenuBarProject
             services.AddSingleton<IPersistAndRestoreService, PersistAndRestoreService>();
 
             // Views and ViewModels
-            services.AddTransient<IShellWindow, ShellWindow>();
-            services.AddTransient<ShellWindowViewModel>();
+            services.AddSingleton<IShellWindow, ShellWindow>();
+            services.AddSingleton<ShellWindowViewModel>();
 
             services.AddTransient<MainViewModel>();
             services.AddTransient<MainPage>();
