@@ -1,19 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using BlankProject.Contracts.Services;
+using BlankProject.Contracts.ViewModels;
+using BlankProject.ViewModels;
+using BlankProject.Views;
 
 namespace BlankProject.Services
 {
-    public class NavigationService
+    public class NavigationService : INavigationService
     {
-        private bool _isNavigated = false;
         private IServiceProvider _serviceProvider;
         private Frame _frame;
         private object _lastExtraDataUsed;
+        private readonly Dictionary<string, Type> _pages = new Dictionary<string, Type>();
 
-        public event NavigatedEventHandler Navigated;
-
-        public event NavigationFailedEventHandler NavigationFailed;
+        public event EventHandler<string> Navigated;
 
         public bool CanGoBack => _frame.CanGoBack;
 
@@ -30,48 +35,79 @@ namespace BlankProject.Services
                 _frame.Navigated += OnNavigated;
                 _frame.NavigationFailed += OnNavigationFailed;
             }
+
+            Configure(typeof(MainViewModel).FullName, typeof(MainPage));
+            Configure(typeof(BlankViewModel).FullName, typeof(BlankPage));
         }
 
-        public bool IsNavigated()
-            => _isNavigated;
-
-        public bool Navigate<T>()
-            where T : Page
-            => Navigate(typeof(T));
-
-        public bool Navigate<T>(object extraData)
-            where T : Page
-            => Navigate(typeof(T), extraData);
-
-        public bool Navigate(Type pageType, object extraData = null)
+        private void Configure(string key, Type pageType)
         {
-            if (_frame.Content?.GetType() != pageType || (extraData != null && !extraData.Equals(_lastExtraDataUsed)))
+            lock (_pages)
             {
-                return Navigate(_serviceProvider.GetService(pageType), extraData);
-            }
+                if (_pages.ContainsKey(key))
+                {
+                    throw new ArgumentException($"The key {key} is already configured in NavigationService");
+                }
 
-            return false;
+                if (_pages.Any(p => p.Value == pageType))
+                {
+                    throw new ArgumentException($"This type is already configured with key {_pages.First(p => p.Value == pageType).Key}");
+                }
+
+                _pages.Add(key, pageType);
+            }
         }
 
         public void GoBack()
             => _frame.GoBack();
 
-        private bool Navigate(object content, object extraData)
+        public bool Navigate(string pageKey, object extraData = null)
         {
-            var navigated = _frame.Navigate(content, extraData);
-            if (navigated)
+            Type pageType;
+            lock (_pages)
             {
-                _lastExtraDataUsed = extraData;
-                _isNavigated = true;
+                if (!_pages.TryGetValue(pageKey, out pageType))
+                {
+                    throw new ArgumentException($"Page not found: {pageKey}. Did you forget to call NavigationService.Configure?");
+                }
+            }
+            if (_frame.Content?.GetType() != pageType || (extraData != null && !extraData.Equals(_lastExtraDataUsed)))
+            {
+                var page = _serviceProvider.GetService(pageType);
+                if (_frame.Content is FrameworkElement element)
+                {
+                    if (element.DataContext is INavigationAware navigationAware)
+                    {
+                        navigationAware.OnNavigatingFrom();
+                    }
+                }
+                var navigated = _frame.Navigate(page, extraData);
+                if (navigated)
+                {
+                    _lastExtraDataUsed = extraData;
+                }
+
+                return navigated;
             }
 
-            return navigated;
+            return false;
         }
 
         private void OnNavigated(object sender, NavigationEventArgs e)
-            => Navigated?.Invoke(this, e);
+        {
+            if (e.Content is FrameworkElement element)
+            {
+                if (element.DataContext is INavigationAware navigationAware)
+                {
+                    navigationAware.OnNavigatedTo(e.ExtraData);
+                }
+
+                Navigated?.Invoke(sender, element.DataContext.GetType().FullName);
+            }
+        }
 
         private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-            => NavigationFailed?.Invoke(this, e);
+        {
+        }
     }
 }

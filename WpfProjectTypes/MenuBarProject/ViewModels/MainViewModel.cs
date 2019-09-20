@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using MenuBarProject.Helpers;
 
 namespace MenuBarProject.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel : Observable
     {
         public MainViewModel()
         {

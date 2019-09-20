@@ -1,23 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using MahApps.Metro.Controls;
+using MenuBarProject.Contracts.Services;
+using MenuBarProject.Contracts.ViewModels;
+using MenuBarProject.Models;
+using MenuBarProject.ViewModels;
+using MenuBarProject.Views;
 
 namespace MenuBarProject.Services
 {
-    public class NavigationService
+    public class NavigationService : INavigationService
     {
-        private bool _isInitialized = false;
-        private bool _isNavigated = false;
         private IServiceProvider _serviceProvider;
         private Frame _frame;
-        private Frame _secondaryFrame;
-        private SplitView _splitView;
         private object _lastExtraDataUsed;
+        private readonly Dictionary<string, Type> _pages = new Dictionary<string, Type>();
 
-        public event NavigatedEventHandler Navigated;
-
-        public event NavigationFailedEventHandler NavigationFailed;
+        public event EventHandler<string> Navigated;
 
         public bool CanGoBack => _frame.CanGoBack;
 
@@ -26,63 +29,107 @@ namespace MenuBarProject.Services
             _serviceProvider = serviceProvider;
         }
 
-        public void Initialize(SplitView splitView)
+        public void Initialize(Frame shellFrame)
         {
-            if (!_isInitialized)
+            if (_frame == null)
             {
-                _splitView = splitView;
-                _frame = _splitView.Content as Frame;
-                _secondaryFrame = _splitView.Pane as Frame;
+                _frame = shellFrame;
                 _frame.Navigated += OnNavigated;
                 _frame.NavigationFailed += OnNavigationFailed;
-                _isInitialized = true;
             }
+
+            Configure(typeof(MainViewModel).FullName, typeof(MainPage));
+            Configure(typeof(BlankViewModel).FullName, typeof(BlankPage));
+            Configure(typeof(SettingsViewModel).FullName, typeof(SettingsPage));
         }
 
-        public bool IsNavigated()
-            => _isNavigated;
-
-        public bool Navigate<T>(object extraData = null, bool useSecondaryFrame = false)
-            where T : Page
-            => Navigate(typeof(T), extraData);
-
-        public bool Navigate(Type pageType, object extraData = null, bool useSecondaryFrame = false)
+        private void Configure(string key, Type pageType)
         {
-            if (_frame.Content?.GetType() != pageType || (extraData != null && !extraData.Equals(_lastExtraDataUsed)))
+            lock (_pages)
             {
-                return Navigate(_serviceProvider.GetService(pageType), extraData, useSecondaryFrame);
-            }
+                if (_pages.ContainsKey(key))
+                {
+                    throw new ArgumentException($"The key {key} is already configured in NavigationService");
+                }
 
-            return false;
+                if (_pages.Any(p => p.Value == pageType))
+                {
+                    throw new ArgumentException($"This type is already configured with key {_pages.First(p => p.Value == pageType).Key}");
+                }
+
+                _pages.Add(key, pageType);
+            }
         }
 
         public void GoBack()
             => _frame.GoBack();
 
-        private bool Navigate(object content, object extraData, bool useSecondaryFrame = false)
+        public bool Navigate(string pageKey, object extraData = null, bool clearNavigation = false)
         {
-            var frame = useSecondaryFrame ? _secondaryFrame : _frame;
-            var navigated = frame.Navigate(content, extraData);
-            if (navigated)
+            var pageType = GetPageType(pageKey);
+            if (_frame.Content?.GetType() != pageType || (extraData != null && !extraData.Equals(_lastExtraDataUsed)))
             {
-                if (useSecondaryFrame)
+                var page = _serviceProvider.GetService(pageType);
+                if (_frame.Content is FrameworkElement element)
                 {
-                    _splitView.IsPaneOpen = true;
+                    if (element.DataContext is INavigationAware navigationAware)
+                    {
+                        navigationAware.OnNavigatingFrom();
+                    }
                 }
-                else
+                _frame.Tag = clearNavigation;
+                var navigated = _frame.Navigate(page, extraData);
+                if (navigated)
                 {
                     _lastExtraDataUsed = extraData;
-                    _isNavigated = true;
                 }
+
+                return navigated;
             }
 
-            return navigated;
+            return false;
         }
 
         private void OnNavigated(object sender, NavigationEventArgs e)
-            => Navigated?.Invoke(this, e);
+        {
+            if (e.Content is FrameworkElement element)
+            {
+                if (element.DataContext is INavigationAware navigationAware)
+                {
+                    navigationAware.OnNavigatedTo(e.ExtraData);
+                }
+
+                Navigated?.Invoke(sender, element.DataContext.GetType().FullName);
+            }
+
+            if (sender is Frame frame)
+            {
+                bool clearNavigation = (bool)frame.Tag;
+                if (clearNavigation)
+                {
+                    do
+                        frame.RemoveBackEntry();
+                    while (frame.CanGoBack);
+                }
+            }
+        }
 
         private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-            => NavigationFailed?.Invoke(this, e);
+        {
+        }
+
+        public Type GetPageType(string viewModelName)
+        {
+            Type pageType;
+            lock (_pages)
+            {
+                if (!_pages.TryGetValue(viewModelName, out pageType))
+                {
+                    throw new ArgumentException($"Page not found: {viewModelName}. Did you forget to call NavigationService.Configure?");
+                }
+            }
+
+            return pageType;
+        }
     }
 }

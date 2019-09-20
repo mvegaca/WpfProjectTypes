@@ -16,13 +16,14 @@
             </Grid.RowDefinitions>
             <Menu>
                 <MenuItem Header="File">
-                    <MenuItem Header="Settings" Command="{Binding SecondaryFrameNavigateCommand}" CommandParameter="MenuBarProject.Views.SettingsPage" />
+                    <MenuItem Header="Settings" Command="{Binding MenuFileSettingsCommand}" CommandParameter="MenuBarProject.ViewModels.SettingsViewModel" />
                     <Separator />
-                    <MenuItem Header="Exit" Command="{Binding ExitCommand}" />
+                    <MenuItem Header="Exit" Command="{Binding MenuFileExitCommand}" />
                 </MenuItem>
                 <MenuItem Header="Views">
-                    <MenuItem Header="Main" Command="{Binding MainFrameNavigateCommand}" CommandParameter="MenuBarProject.Views.MainPage" />
-                    <MenuItem Header="Secondary" Command="{Binding MainFrameNavigateCommand}" CommandParameter="MenuBarProject.Views.SecondaryPage" />
+                    <MenuItem Header="Main" Command="{Binding MenuViewsMainCommand}" CommandParameter="MenuBarProject.ViewModels.MainViewModel" />
+                    <MenuItem Header="Blank" Command="{Binding MenuViewsBlankCommand}" CommandParameter="MenuBarProject.ViewModels.BlankViewModel" />
+                    <MenuItem Header="Main (new window)" Command="{Binding MenuViewsNewWindowMainCommand}" CommandParameter="MenuBarProject.ViewModels.MainViewModel" />
                 </MenuItem>
             </Menu>
             <controls:SplitView
@@ -32,14 +33,18 @@
                 OpenPaneLength="400">
                 <controls:SplitView.Pane>
                     <Frame
+                        x:Name="rightPaneFrame"
                         Focusable="False"
                         NavigationUIVisibility="Hidden"
-                        Background="{DynamicResource MahApps.Brushes.White}"
-                        BorderBrush="{DynamicResource MahApps.Brushes.Black}"
+                        Background="{DynamicResource MahApps.Brushes.Control.Background}"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Controls.Border}"
                         BorderThickness="1,1,0,0" />
                 </controls:SplitView.Pane>
                 <controls:SplitView.Content>
-                    <Frame Focusable="False" NavigationUIVisibility="Hidden" />
+                    <Frame
+                        x:Name="shellFrame"                        
+                        Focusable="False"
+                        NavigationUIVisibility="Hidden" />
                 </controls:SplitView.Content>
             </controls:SplitView>
         </Grid>

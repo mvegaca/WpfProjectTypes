@@ -13,7 +13,7 @@
         <controls:WindowCommands>
             <Button
                 Foreground="White"
-                Width="{Binding ElementName=hamburgerMenu, Path=CompactPaneLength}"
+                Width="48"
                 Command="{Binding GoBackCommand}">
                 <iconPacks:PackIconMaterial
                     Kind="ArrowLeft"
@@ -29,3 +29,4 @@
             Focusable="False" />
     </controls:MetroWindow.Content>
 </controls:MetroWindow>
+    
