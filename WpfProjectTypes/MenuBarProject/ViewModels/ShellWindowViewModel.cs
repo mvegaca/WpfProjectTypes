@@ -7,39 +7,50 @@ namespace MenuBarProject.ViewModels
 {
     public class ShellWindowViewModel : Observable
     {
-        private IMenuNavigationService _menuNavigationService;
+        private INavigationService _navigationService;
+        private IRightPaneService _rightPaneService;
+        private IWindowManagerService _windowManagerService;
+
         private ICommand _menuViewsMainCommand;
-        private ICommand _menuViewsBlankCommand;
+        private ICommand _menuViewsBlank1Command;
+        private ICommand _menuViewsBlank2Command;
+        private ICommand _menuViewsBlank3Command;
         private ICommand _menuFilesSettingsCommand;
-        private ICommand _menuViewsNewWindowMainCommand;
         private ICommand _menuFileExitCommand;
 
         public ICommand MenuViewsMainCommand => _menuViewsMainCommand ?? (_menuViewsMainCommand = new RelayCommand(OnMenuViewsMain));
 
-        public ICommand MenuViewsBlankCommand => _menuViewsBlankCommand ?? (_menuViewsBlankCommand = new RelayCommand(OnMenuViewsBlank));
+        public ICommand MenuViewsBlank1Command => _menuViewsBlank1Command ?? (_menuViewsBlank1Command = new RelayCommand(OnMenuViewsBlank1));
 
-        public ICommand MenuViewsNewWindowMainCommand => _menuViewsNewWindowMainCommand ?? (_menuViewsNewWindowMainCommand = new RelayCommand(OnMenuViewsNewWindowMain));
+        public ICommand MenuViewsBlank2Command => _menuViewsBlank2Command ?? (_menuViewsBlank2Command = new RelayCommand(OnMenuViewsBlank2));
+
+        public ICommand MenuViewsBlank3Command => _menuViewsBlank3Command ?? (_menuViewsBlank3Command = new RelayCommand(OnMenuViewsBlank3));
 
         public ICommand MenuFileSettingsCommand => _menuFilesSettingsCommand ?? (_menuFilesSettingsCommand = new RelayCommand(OnMenuFileSettings));
 
         public ICommand MenuFileExitCommand => _menuFileExitCommand ?? (_menuFileExitCommand = new RelayCommand(OnMenuFileExit));
 
-        public ShellWindowViewModel(IMenuNavigationService menuNavigationService)
+        public ShellWindowViewModel(INavigationService navigationService, IWindowManagerService windowManagerService, IRightPaneService rightPaneService)
         {
-            _menuNavigationService = menuNavigationService;
+            _navigationService = navigationService;
+            _rightPaneService = rightPaneService;
+            _windowManagerService = windowManagerService;
         }
 
         private void OnMenuViewsMain()
-            => _menuNavigationService.UpdateView(typeof(MainViewModel).FullName);
+            => _navigationService.Navigate(typeof(MainViewModel).FullName, null, true);
 
-        private void OnMenuViewsBlank()
-        => _menuNavigationService.UpdateView(typeof(BlankViewModel).FullName);
+        private void OnMenuViewsBlank1()
+            => _navigationService.Navigate(typeof(Blank1ViewModel).FullName, null, true);
 
-        private void OnMenuViewsNewWindowMain()
-        => _menuNavigationService.OpenInNewWindow(typeof(MainViewModel).FullName);
+        private void OnMenuViewsBlank2()
+            => _windowManagerService.OpenInNewWindow(typeof(Blank2ViewModel).FullName);
 
-        private void OnMenuFileSettings()
-        => _menuNavigationService.OpenInRightPane(typeof(SettingsViewModel).FullName);
+        private void OnMenuViewsBlank3()
+            => _windowManagerService.OpenInDialog(typeof(Blank3ViewModel).FullName);
+
+        private void OnMenuFileSettings()            
+            => _rightPaneService.OpenInRightPane(typeof(SettingsViewModel).FullName);
 
         private void OnMenuFileExit()
             => Application.Current.Shutdown();

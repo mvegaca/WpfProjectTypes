@@ -6,9 +6,9 @@ namespace MenuBarProject.Views
     /// <summary>
     /// Interaction logic for BlankPage.xaml
     /// </summary>
-    public partial class BlankPage : Page
+    public partial class Blank1Page : Page
     {
-        public BlankPage(BlankViewModel viewModel)
+        public Blank1Page(Blank1ViewModel viewModel)
         {
             InitializeComponent();
             DataContext = viewModel;

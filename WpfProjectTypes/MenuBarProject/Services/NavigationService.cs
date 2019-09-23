@@ -4,10 +4,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using MahApps.Metro.Controls;
 using MenuBarProject.Contracts.Services;
 using MenuBarProject.Contracts.ViewModels;
-using MenuBarProject.Models;
 using MenuBarProject.ViewModels;
 using MenuBarProject.Views;
 
@@ -17,7 +15,7 @@ namespace MenuBarProject.Services
     {
         private IServiceProvider _serviceProvider;
         private Frame _frame;
-        private object _lastExtraDataUsed;
+        private object _lastParameterUsed;
         private readonly Dictionary<string, Type> _pages = new Dictionary<string, Type>();
 
         public event EventHandler<string> Navigated;
@@ -35,11 +33,12 @@ namespace MenuBarProject.Services
             {
                 _frame = shellFrame;
                 _frame.Navigated += OnNavigated;
-                _frame.NavigationFailed += OnNavigationFailed;
             }
 
             Configure(typeof(MainViewModel).FullName, typeof(MainPage));
-            Configure(typeof(BlankViewModel).FullName, typeof(BlankPage));
+            Configure(typeof(Blank1ViewModel).FullName, typeof(Blank1Page));
+            Configure(typeof(Blank2ViewModel).FullName, typeof(Blank2Page));
+            Configure(typeof(Blank3ViewModel).FullName, typeof(Blank3Page));
             Configure(typeof(SettingsViewModel).FullName, typeof(SettingsPage));
         }
 
@@ -64,10 +63,10 @@ namespace MenuBarProject.Services
         public void GoBack()
             => _frame.GoBack();
 
-        public bool Navigate(string pageKey, object extraData = null, bool clearNavigation = false)
+        public bool Navigate(string pageKey, object parameter = null, bool clearNavigation = false)
         {
             var pageType = GetPageType(pageKey);
-            if (_frame.Content?.GetType() != pageType || (extraData != null && !extraData.Equals(_lastExtraDataUsed)))
+            if (_frame.Content?.GetType() != pageType || (parameter != null && !parameter.Equals(_lastParameterUsed)))
             {
                 var page = _serviceProvider.GetService(pageType);
                 if (_frame.Content is FrameworkElement element)
@@ -78,10 +77,10 @@ namespace MenuBarProject.Services
                     }
                 }
                 _frame.Tag = clearNavigation;
-                var navigated = _frame.Navigate(page, extraData);
+                var navigated = _frame.Navigate(page, parameter);
                 if (navigated)
                 {
-                    _lastExtraDataUsed = extraData;
+                    _lastParameterUsed = parameter;
                 }
 
                 return navigated;
@@ -92,16 +91,6 @@ namespace MenuBarProject.Services
 
         private void OnNavigated(object sender, NavigationEventArgs e)
         {
-            if (e.Content is FrameworkElement element)
-            {
-                if (element.DataContext is INavigationAware navigationAware)
-                {
-                    navigationAware.OnNavigatedTo(e.ExtraData);
-                }
-
-                Navigated?.Invoke(sender, element.DataContext.GetType().FullName);
-            }
-
             if (sender is Frame frame)
             {
                 bool clearNavigation = (bool)frame.Tag;
@@ -112,10 +101,16 @@ namespace MenuBarProject.Services
                     while (frame.CanGoBack);
                 }
             }
-        }
 
-        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-        {
+            if (e.Content is FrameworkElement element)
+            {
+                if (element.DataContext is INavigationAware navigationAware)
+                {
+                    navigationAware.OnNavigatedTo(e.ExtraData);
+                }
+
+                Navigated?.Invoke(sender, element.DataContext.GetType().FullName);
+            }
         }
 
         public Type GetPageType(string viewModelName)

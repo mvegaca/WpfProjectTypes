@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Controls;
-using MenuBarProject.Models;
 
 namespace MenuBarProject.Contracts.Services
 {
@@ -15,7 +13,7 @@ namespace MenuBarProject.Contracts.Services
 
         Type GetPageType(string viewModelName);
 
-        bool Navigate(string viewModelName, object extraData = null, bool clearNavigation = false);
+        bool Navigate(string viewModelName, object parameter = null, bool clearNavigation = false);
 
         void GoBack();
     }

@@ -2,9 +2,9 @@
 
 namespace MenuBarProject.ViewModels
 {
-    public class MainViewModel : Observable
+    public class Blank1ViewModel : Observable
     {
-        public MainViewModel()
+        public Blank1ViewModel()
         {
         }
     }

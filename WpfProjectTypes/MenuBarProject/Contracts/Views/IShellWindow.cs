@@ -6,7 +6,7 @@ namespace MenuBarProject.Contracts.Views
     {
         Frame GetNavigationFrame();
 
-        Frame GetRightPaneFrame();        
+        Frame GetRightPaneFrame();
 
         void ShowWindow();
 

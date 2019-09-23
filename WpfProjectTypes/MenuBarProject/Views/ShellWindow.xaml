@@ -22,8 +22,9 @@
                 </MenuItem>
                 <MenuItem Header="Views">
                     <MenuItem Header="Main" Command="{Binding MenuViewsMainCommand}" CommandParameter="MenuBarProject.ViewModels.MainViewModel" />
-                    <MenuItem Header="Blank" Command="{Binding MenuViewsBlankCommand}" CommandParameter="MenuBarProject.ViewModels.BlankViewModel" />
-                    <MenuItem Header="Main (new window)" Command="{Binding MenuViewsNewWindowMainCommand}" CommandParameter="MenuBarProject.ViewModels.MainViewModel" />
+                    <MenuItem Header="Blank1" Command="{Binding MenuViewsBlank1Command}" CommandParameter="MenuBarProject.ViewModels.Blank1ViewModel" />
+                    <MenuItem Header="Blank2 (New Window)" Command="{Binding MenuViewsBlank2Command}" CommandParameter="MenuBarProject.ViewModels.Blank2ViewModel" />
+                    <MenuItem Header="Blank3 (Dialog)" Command="{Binding MenuViewsBlank3Command}" CommandParameter="MenuBarProject.ViewModels.Blank3ViewModel" />
                 </MenuItem>
             </Menu>
             <controls:SplitView

@@ -15,7 +15,7 @@ namespace BlankProject.Services
     {
         private IServiceProvider _serviceProvider;
         private Frame _frame;
-        private object _lastExtraDataUsed;
+        private object _lastParameterUsed;
         private readonly Dictionary<string, Type> _pages = new Dictionary<string, Type>();
 
         public event EventHandler<string> Navigated;
@@ -33,11 +33,10 @@ namespace BlankProject.Services
             {
                 _frame = shellFrame;
                 _frame.Navigated += OnNavigated;
-                _frame.NavigationFailed += OnNavigationFailed;
             }
 
             Configure(typeof(MainViewModel).FullName, typeof(MainPage));
-            Configure(typeof(BlankViewModel).FullName, typeof(BlankPage));
+            Configure(typeof(SettingsViewModel).FullName, typeof(SettingsPage));
         }
 
         private void Configure(string key, Type pageType)
@@ -61,7 +60,7 @@ namespace BlankProject.Services
         public void GoBack()
             => _frame.GoBack();
 
-        public bool Navigate(string pageKey, object extraData = null)
+        public bool Navigate(string pageKey, object parameter = null)
         {
             Type pageType;
             lock (_pages)
@@ -71,7 +70,7 @@ namespace BlankProject.Services
                     throw new ArgumentException($"Page not found: {pageKey}. Did you forget to call NavigationService.Configure?");
                 }
             }
-            if (_frame.Content?.GetType() != pageType || (extraData != null && !extraData.Equals(_lastExtraDataUsed)))
+            if (_frame.Content?.GetType() != pageType || (parameter != null && !parameter.Equals(_lastParameterUsed)))
             {
                 var page = _serviceProvider.GetService(pageType);
                 if (_frame.Content is FrameworkElement element)
@@ -81,10 +80,10 @@ namespace BlankProject.Services
                         navigationAware.OnNavigatingFrom();
                     }
                 }
-                var navigated = _frame.Navigate(page, extraData);
+                var navigated = _frame.Navigate(page, parameter);
                 if (navigated)
                 {
-                    _lastExtraDataUsed = extraData;
+                    _lastParameterUsed = parameter;
                 }
 
                 return navigated;
@@ -104,10 +103,6 @@ namespace BlankProject.Services
 
                 Navigated?.Invoke(sender, element.DataContext.GetType().FullName);
             }
-        }
-
-        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-        {
         }
     }
 }

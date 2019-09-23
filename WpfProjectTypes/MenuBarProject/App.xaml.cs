@@ -34,7 +34,8 @@ namespace MenuBarProject
 
             // Services
             services.AddSingleton<INavigationService, NavigationService>();
-            services.AddSingleton<IMenuNavigationService, MenuNavigationService>();
+            services.AddSingleton<IWindowManagerService, WindowManagerService>();
+            services.AddSingleton<IRightPaneService, RightPaneService>();
             services.AddSingleton<IThemeSelectorService, ThemeSelectorService>();
             services.AddSingleton<IFilesService, FilesService>();
             services.AddSingleton<IPersistAndRestoreService, PersistAndRestoreService>();
@@ -43,11 +44,20 @@ namespace MenuBarProject
             services.AddSingleton<IShellWindow, ShellWindow>();
             services.AddSingleton<ShellWindowViewModel>();
 
+            services.AddTransient<IShellDialogWindow, ShellDialogWindow>();
+            services.AddTransient<ShellDialogViewModel>();
+
             services.AddTransient<MainViewModel>();
             services.AddTransient<MainPage>();
 
-            services.AddTransient<BlankViewModel>();
-            services.AddTransient<BlankPage>();
+            services.AddTransient<Blank1ViewModel>();
+            services.AddTransient<Blank1Page>();
+
+            services.AddTransient<Blank2ViewModel>();
+            services.AddTransient<Blank2Page>();
+
+            services.AddTransient<Blank3ViewModel>();
+            services.AddTransient<Blank3Page>();
 
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SettingsPage>();

@@ -11,7 +11,7 @@ namespace BlankProject.Contracts.Services
 
         void Initialize(Frame shellFrame);
 
-        bool Navigate(string pageKey, object extraData = null);
+        bool Navigate(string pageKey, object parameter = null);
 
         void GoBack();
 
