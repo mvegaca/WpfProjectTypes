@@ -34,7 +34,6 @@ namespace MenuBarProject.Helpers
         private readonly Action<T> _execute;
 
         private readonly Func<T, bool> _canExecute;
-        private Action onNavigate;
 
         public event EventHandler CanExecuteChanged;
 
@@ -47,11 +46,6 @@ namespace MenuBarProject.Helpers
         {
             _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
-        }
-
-        public RelayCommand(Action onNavigate)
-        {
-            this.onNavigate = onNavigate;
         }
 
         public bool CanExecute(object parameter) => _canExecute == null || _canExecute((T)parameter);
