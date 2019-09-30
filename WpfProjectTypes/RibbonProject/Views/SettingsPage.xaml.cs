@@ -6,9 +6,9 @@ namespace RibbonProject.Views
     /// <summary>
     /// Interaction logic for MainPage.xaml
     /// </summary>
-    public partial class MainPage : Page
+    public partial class SettingsPage : Page
     {
-        public MainPage(MainViewModel viewModel)
+        public SettingsPage(SettingsViewModel viewModel)
         {
             InitializeComponent();
             DataContext = viewModel;

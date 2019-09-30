@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using RibbonProject.Helpers;
 
 namespace RibbonProject.ViewModels
 {
-    class MainViewModel
+    public class MainViewModel : Observable
     {
+        public MainViewModel()
+        {
+        }
     }
 }

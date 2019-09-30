@@ -1,7 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
 using Fluent;
 using MahApps.Metro.Controls;
-using RibbonProject.Services;
+using RibbonProject.Contracts.Views;
 using RibbonProject.ViewModels;
 
 namespace RibbonProject.Views
@@ -9,16 +11,28 @@ namespace RibbonProject.Views
     /// <summary>
     /// Interaction logic for ShellWindow.xaml
     /// </summary>
-    public partial class ShellWindow : MetroWindow
+    public partial class ShellWindow : MetroWindow, IShellWindow
     {
         private RibbonTitleBar _titleBar;
 
-        public ShellWindow(ShelWindowViewModel viewModel, NavigationService navigationService)
+        public ShellWindow(ShellWindowViewModel viewModel, IServiceProvider serviceProvider)
         {
             InitializeComponent();
             DataContext = viewModel;
-            navigationService.Initialize(shellFrame);
-        }
+            navigationBehavior.Initialize(serviceProvider);
+        }        
+
+        public Frame GetNavigationFrame()
+            => shellFrame;
+
+        public Frame GetRightPaneFrame()
+            => rightPaneFrame;
+
+        public void OpenRightPane()
+            => splitView.IsPaneOpen = true;
+
+        public void ShowWindow()
+            => Show();
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {

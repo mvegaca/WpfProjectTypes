@@ -5,18 +5,21 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-    xmlns:Fluent="urn:fluent-ribbon"    
+    xmlns:Fluent="urn:fluent-ribbon"
+    xmlns:views="clr-namespace:RibbonProject.Views"
+    xmlns:behaviors="clr-namespace:RibbonProject.Behaviors"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     mc:Ignorable="d"
     ShowSystemMenuOnRightClick="False"
     Loaded="MetroWindow_Loaded"
-    Title="RibbonProject" Height="450" Width="800">
-    <!--
     ShowTitleBar="True"
-    -->
+    Title="RibbonProject" Height="450" Width="800">
 
     <controls:MetroWindow.TitleTemplate>
         <DataTemplate>
-            <Fluent:RibbonTitleBar x:Name="RibbonTitleBar" Header="{Binding Path=Title, RelativeSource={RelativeSource AncestorType=controls:MetroWindow}}" />
+            <Fluent:RibbonTitleBar
+                x:Name="RibbonTitleBar"
+                Header="{Binding Path=Title, RelativeSource={RelativeSource AncestorType=controls:MetroWindow}}" />
         </DataTemplate>
     </controls:MetroWindow.TitleTemplate>
 
@@ -26,14 +29,19 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Fluent:Ribbon Grid.Row="0">
+            <Fluent:Ribbon x:Name="ribbonControl" Grid.Row="0">
                 <!--Backstage-->
                 <Fluent:Ribbon.Menu>
-                    <Fluent:Backstage>
-                        <Fluent:BackstageTabControl>
-                            <Fluent:BackstageTabItem Header="New" />
-                            <Fluent:BackstageTabItem Header="Print" />
-                            <Fluent:Button Header="Blue" />
+                    <Fluent:Backstage UseHighestAvailableAdornerLayer="False">
+                        <Fluent:BackstageTabControl x:Name="backstageTabControl">
+                            <i:Interaction.Behaviors>
+                                <behaviors:BackstageTabNavigationBehavior x:Name="navigationBehavior" />
+                            </i:Interaction.Behaviors>
+                            <Fluent:BackstageTabItem Header="Settings" Tag="RibbonProject.ViewModels.SettingsViewModel" />
+                            <Fluent:BackstageTabItem Header="Main" Tag="RibbonProject.ViewModels.MainViewModel" />
+                            <Fluent:Button Header="Show Main in Dialog" Command="{Binding ShowInDialogCommand}" CommandParameter="RibbonProject.ViewModels.MainViewModel" />
+                            <Fluent:Button Header="Show Main in a New Window" Command="{Binding OpenInANewWindowCommand}" CommandParameter="RibbonProject.ViewModels.MainViewModel" />
+                            <Fluent:Button Header="Show Main in right pane" Command="{Binding OpenInRightPaneCommand}" CommandParameter="RibbonProject.ViewModels.MainViewModel" />
                         </Fluent:BackstageTabControl>
                     </Fluent:Backstage>
                 </Fluent:Ribbon.Menu>
@@ -49,80 +57,42 @@
                 </Fluent:Ribbon.QuickAccessItems>
 
                 <!--Tabs-->
-                <Fluent:RibbonTabItem Header="Home" Fluent:KeyTip="H">
-                    <Fluent:RibbonGroupBox Header="Font" State="Large" Grid.IsSharedSizeScope="True" MinWidth="150">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="2">
-                            <Fluent:ToggleButton
-                                Header="Bold"
-                                SizeDefinition="Small"
-                                Margin="2"
-                                Icon="Images\Bold.png" />
-                            <Fluent:ToggleButton
-                                Header="Italic"
-                                SizeDefinition="Small"
-                                Margin="2"
-                                Icon="Images\Italic.png" />
-                            <Fluent:ToggleButton
-                                Header="Underline"
-                                SizeDefinition="Small"
-                                Margin="2"
-                                Icon="Images\Underline.png" />
-                        </StackPanel>
-                        <Fluent:ComboBox
-                            SelectedIndex="0"
-                            Margin="2"
-                            HorizontalAlignment="Left"
-                            MinWidth="50">
-                            <Fluent:ComboBox.ToolTip>
-                                <Fluent:ScreenTip
-                                    Title="Font Size"
-                                    HelpTopic="Help for Font Size"
-                                    Text="Help for Font Size" />
-                            </Fluent:ComboBox.ToolTip>
-                            <TextBlock Text="8" />
-                            <TextBlock Text="9" />
-                            <TextBlock Text="10" />
-                            <TextBlock Text="11" />
-                            <TextBlock Text="12" />
-                        </Fluent:ComboBox>
+                <Fluent:RibbonTabItem Header="Home" Fluent:KeyTip="A">
+                    <Fluent:RibbonGroupBox
+                        Header="Group 1"
+                        State="Large"
+                        Grid.IsSharedSizeScope="True"
+                        MinWidth="150">
                     </Fluent:RibbonGroupBox>
-                    <Fluent:RibbonGroupBox Header="Clipboard" State="Large" MinWidth="150">
-                        <Fluent:SplitButton
-                            Header="Paste text"
-                            Icon="Images\PasteText.png"
-                            LargeIcon="Images\PasteText.png">
-                            <Fluent:SplitButton.Items>
-                                <Fluent:MenuItem
-                                    Header="Paste formating"
-                                    Icon="Images\PasteFormating.png" />
-                                <Fluent:MenuItem
-                                    Header="Paste image"
-                                    Icon="Images\PasteImage.png" />
-                                <Fluent:MenuItem
-                                    Header="Paste text only"
-                                    Icon="Images\PasteTextOnly.png" />
-                            </Fluent:SplitButton.Items>
-                        </Fluent:SplitButton>
+                    <Fluent:RibbonGroupBox
+                        Header="Group 2"
+                        State="Middle"
+                        MinWidth="150">
                     </Fluent:RibbonGroupBox>
-                    <Fluent:RibbonGroupBox Header="Paragraph" State="Large" MinWidth="150" />
-                    <Fluent:RibbonGroupBox Header="Styles" State="Large" MinWidth="150" />
                 </Fluent:RibbonTabItem>
-                <Fluent:RibbonTabItem Header="Insert" Fluent:KeyTip="N" />
-                <Fluent:RibbonTabItem Header="Design" Fluent:KeyTip="G" />
-                <Fluent:RibbonTabItem Header="Layout" Fluent:KeyTip="P" />
-                <Fluent:RibbonTabItem Header="References" Fluent:KeyTip="S" />
-                <Fluent:RibbonTabItem Header="Mailings" Fluent:KeyTip="M" />
-                <Fluent:RibbonTabItem Header="Review" Fluent:KeyTip="R" />
-                <Fluent:RibbonTabItem Header="View" Fluent:KeyTip="W" />
-                <Fluent:RibbonTabItem Header="Help" Fluent:KeyTip="Y" />
+                <Fluent:RibbonTabItem Header="Help" Fluent:KeyTip="H" />
             </Fluent:Ribbon>
-            <Frame
+            <controls:SplitView
                 Grid.Row="1"
-                x:Name="shellFrame"
-                Focusable="False"
-                NavigationUIVisibility="Hidden" />
+                x:Name="splitView"
+                PanePlacement="Right"
+                OpenPaneLength="400">
+                <controls:SplitView.Pane>
+                    <Frame
+                        x:Name="rightPaneFrame"
+                        Focusable="False"
+                        NavigationUIVisibility="Hidden"
+                        Background="{DynamicResource MahApps.Brushes.Control.Background}"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Controls.Border}"
+                        BorderThickness="1,1,0,0" />
+                </controls:SplitView.Pane>
+                <controls:SplitView.Content>
+                    <Frame
+                        x:Name="shellFrame"                        
+                        Focusable="False"
+                        NavigationUIVisibility="Hidden" />
+                </controls:SplitView.Content>
+            </controls:SplitView>
         </Grid>
     </controls:MetroWindow.Content>
 </controls:MetroWindow>
-
-
