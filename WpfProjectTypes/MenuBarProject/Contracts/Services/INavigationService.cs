@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Controls;
+using MenuBarProject.Helpers;
 
 namespace MenuBarProject.Contracts.Services
 {
@@ -12,6 +13,8 @@ namespace MenuBarProject.Contracts.Services
         void Initialize(Frame shellFrame);
 
         Type GetPageType(string viewModelName);
+
+        Observable CurrentViewModel { get; }
 
         bool Navigate(string viewModelName, object parameter = null, bool clearNavigation = false);
 

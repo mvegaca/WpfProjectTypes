@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using MenuBarProject.Contracts.Services;
 using MenuBarProject.Contracts.ViewModels;
+using MenuBarProject.Helpers;
 using MenuBarProject.ViewModels;
 using MenuBarProject.Views;
 
@@ -20,7 +21,21 @@ namespace MenuBarProject.Services
 
         public event EventHandler<string> Navigated;
 
-        public bool CanGoBack => _frame.CanGoBack;
+        public bool CanGoBack
+            => _frame.CanGoBack;
+
+        public Observable CurrentViewModel
+        {
+            get
+            {
+                if (_frame != null && _frame.Content is Page page)
+                {
+                    return page.DataContext as Observable;
+                }
+
+                return null;
+            }
+        }
 
         public NavigationService(IServiceProvider serviceProvider)
         {
@@ -125,6 +140,6 @@ namespace MenuBarProject.Services
             }
 
             return pageType;
-        }
+        }        
     }
 }

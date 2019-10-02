@@ -17,14 +17,17 @@
             Text="Blank 2"
             Margin="{StaticResource MediumLeftMargin}"
             Style="{StaticResource PageTitleStyle}" />
-        <Grid
-            Grid.Row="1"
-            Margin="{StaticResource MediumLeftRightMargin}"
-            Background="{DynamicResource MahApps.Brushes.Gray10}">
-            <!--
-            The Mahapps Gray10 color represents where you should place your content. 
-            Place your content here.
-            -->
-        </Grid>
+        <StackPanel
+            Grid.Row="1">
+            <StackPanel Orientation="Horizontal" Margin="0,24,0,0">
+                <TextBlock Text="Text sent from Main Window:" Margin="12,0,0,0" />
+                <TextBlock Text="{Binding OtherWindowsData}" Margin="12,0,0,0" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,24,0,0">
+                <TextBlock Text="Data to send to Main Window:" Margin="12,0,0,0" />
+                <TextBox Text="{Binding DataToSend, Mode=TwoWay}" Margin="12,0,0,0" Width="200" />
+                <Button Content="Send" Command="{Binding SendCommand}" Margin="12,0,0,0"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Page>
