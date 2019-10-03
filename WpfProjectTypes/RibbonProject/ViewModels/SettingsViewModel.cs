@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Reflection;
 using System.Windows.Input;
 using RibbonProject.Contracts.Services;
 using RibbonProject.Contracts.ViewModels;
@@ -48,8 +49,10 @@ namespace RibbonProject.ViewModels
 
         private string GetVersionDescription()
         {
-            var appName = "MyDotNetCoreWpfApp";
-            return $"{appName} - {1}.{0}.{0}.{0}";
+            var appName = "MyDotNetCoreWpfAppRibbon";
+            string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+            var versionInfo = FileVersionInfo.GetVersionInfo(assemblyLocation);
+            return $"{appName} - {versionInfo.FileVersion}";
         }
 
         private void OnSetTheme(string themeName)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Reflection;
 using System.Windows.Input;
 using BlankProject.Contracts.Services;
 using BlankProject.Contracts.ViewModels;
@@ -48,8 +49,10 @@ namespace BlankProject.ViewModels
 
         private string GetVersionDescription()
         {
-            var appName = "MyDotNetCoreWpfApp";
-            return $"{appName} - {1}.{0}.{0}.{0}";
+            var appName = "MyDotNetCoreWpfAppBlank";
+            string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+            var versionInfo = FileVersionInfo.GetVersionInfo(assemblyLocation);
+            return $"{appName} - {versionInfo.FileVersion}";
         }
 
         private void OnSetTheme(string themeName)
