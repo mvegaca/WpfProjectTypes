@@ -1,4 +1,6 @@
 ﻿using System.Windows.Controls;
+using Fluent;
+using RibbonProject.Behaviors;
 
 namespace RibbonProject.Contracts.Views
 {
@@ -7,6 +9,8 @@ namespace RibbonProject.Contracts.Views
         Frame GetNavigationFrame();
 
         Frame GetRightPaneFrame();
+
+        RibbonTabsBehavior GetRibbonTabsBehavior();
 
         void ShowWindow();
 

@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fluent.Ribbon" Version="7.0.0-alpha0661" />
-    <PackageReference Include="MahApps.Metro" Version="2.0.0-alpha0455" />
-    <PackageReference Include="MahApps.Metro.IconPacks" Version="3.0.0-alpha0189" />
+    <PackageReference Include="Fluent.Ribbon" Version="7.0.0" />
+    <PackageReference Include="MahApps.Metro" Version="2.0.0-alpha0490" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="3.0.0-alpha0223" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.0.0" />
   </ItemGroup>
 
@@ -18,6 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\SecondaryPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\SettingsPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -30,6 +33,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Views\SecondaryPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\SettingsPage.xaml">
       <SubType>Designer</SubType>
     </Page>

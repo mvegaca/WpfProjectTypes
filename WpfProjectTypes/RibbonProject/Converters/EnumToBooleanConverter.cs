@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace RibbonProject.Helpers
+namespace RibbonProject.Converters
 {
     public class EnumToBooleanConverter : IValueConverter
     {

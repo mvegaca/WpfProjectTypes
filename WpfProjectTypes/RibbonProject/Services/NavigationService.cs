@@ -36,6 +36,7 @@ namespace RibbonProject.Services
             }
 
             Configure(typeof(MainViewModel).FullName, typeof(MainPage));
+            Configure(typeof(SecondaryViewModel).FullName, typeof(SecondaryPage));
             Configure(typeof(SettingsViewModel).FullName, typeof(SettingsPage));
         }
 

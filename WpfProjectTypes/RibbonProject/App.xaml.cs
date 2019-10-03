@@ -47,8 +47,11 @@ namespace RibbonProject
             services.AddTransient<IShellDialogWindow, ShellDialogWindow>();
             services.AddTransient<ShellDialogViewModel>();
 
-            services.AddTransient<MainViewModel>();
-            services.AddTransient<MainPage>();
+            services.AddSingleton<MainViewModel>();
+            services.AddSingleton<MainPage>();
+
+            services.AddSingleton<SecondaryViewModel>();
+            services.AddSingleton<SecondaryPage>();
 
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SettingsPage>();

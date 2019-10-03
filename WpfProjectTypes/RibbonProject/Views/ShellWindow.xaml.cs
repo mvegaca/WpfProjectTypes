@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using Fluent;
 using MahApps.Metro.Controls;
+using RibbonProject.Behaviors;
+using RibbonProject.Contracts.Services;
 using RibbonProject.Contracts.Views;
 using RibbonProject.ViewModels;
 
@@ -15,7 +17,7 @@ namespace RibbonProject.Views
     {
         private RibbonTitleBar _titleBar;
 
-        public ShellWindow(ShellWindowViewModel viewModel, IServiceProvider serviceProvider)
+        public ShellWindow(ShellWindowViewModel viewModel, IServiceProvider serviceProvider, INavigationService navigationService)
         {
             InitializeComponent();
             DataContext = viewModel;
@@ -24,6 +26,9 @@ namespace RibbonProject.Views
 
         public Frame GetNavigationFrame()
             => shellFrame;
+
+        public RibbonTabsBehavior GetRibbonTabsBehavior()
+            => tabsBehavior;
 
         public Frame GetRightPaneFrame()
             => rightPaneFrame;

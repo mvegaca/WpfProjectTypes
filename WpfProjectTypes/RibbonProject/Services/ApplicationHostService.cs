@@ -21,6 +21,8 @@ namespace RibbonProject.Services
             _shellWindow = shellWindow;
             _navigationService = navigationService;
             _navigationService.Initialize(_shellWindow.GetNavigationFrame());
+            var behavior = _shellWindow.GetRibbonTabsBehavior();
+            behavior.Initialize(_navigationService);
             rightPaneService.Initialize(_shellWindow.GetRightPaneFrame(), _shellWindow.OpenRightPane);
         }
 
