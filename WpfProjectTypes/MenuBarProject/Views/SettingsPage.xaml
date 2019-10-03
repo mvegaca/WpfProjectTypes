@@ -6,13 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:models="clr-namespace:MenuBarProject.Models"
-    xmlns:helpers="clr-namespace:MenuBarProject.Helpers"
+    xmlns:converters="clr-namespace:MenuBarProject.Converters"
     Style="{DynamicResource MetroPage}"
     mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="800"
     Title="SettingsPage">
     <Page.Resources>
-        <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="models:AppTheme" />
+        <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="models:AppTheme" />
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>

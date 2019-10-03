@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-namespace MenuBarProject.Helpers
+
+namespace BlankProject.Converters
 {
     public class EnumToBooleanConverter : IValueConverter
     {
