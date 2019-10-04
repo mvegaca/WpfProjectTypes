@@ -7,6 +7,7 @@
     xmlns:models="clr-namespace:BlankProject.Models"
     xmlns:converters="clr-namespace:BlankProject.Converters"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:strings="clr-namespace:BlankProject.Strings"
     Style="{DynamicResource MetroPage}"
     mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="800"
@@ -20,26 +21,26 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock
-            Text="Settings"
-            Style="{StaticResource PageTitleStyle}" />
+            Style="{StaticResource PageTitleStyle}"
+            Text="{x:Static strings:Resources.SettingsPageTitle}" />
         <StackPanel
             x:Name="ContentArea"
             Grid.Row="1"
             Margin="{StaticResource MediumLeftRightMargin}">
 
             <TextBlock
-                Text="Personalization"
                 Margin="{StaticResource SmallTopMargin}"
-                Style="{StaticResource SubtitleTextStyle}" />
+                Style="{StaticResource SubtitleTextStyle}"
+                Text="{x:Static strings:Resources.SettingsPagePersonalizationTitle}" />
             <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
                 <TextBlock
-                    Text="Choose Theme"
-                    Style="{StaticResource BodyTextStyle}" />
+                    Style="{StaticResource BodyTextStyle}"
+                    Text="{x:Static strings:Resources.SettingsPageChooseThemeText}" />
                 <StackPanel Margin="{StaticResource XSmallTopMargin}">
                     <RadioButton
                         GroupName="AppTheme"
-                        Content="Light"
                         FontSize="{StaticResource MediumFontSize}"
+                        Content="{x:Static strings:Resources.SettingsPageRadioButtonLightTheme}"
                         IsChecked="{Binding Theme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
@@ -49,9 +50,9 @@
                     </RadioButton>
                     <RadioButton
                         GroupName="AppTheme"
-                        Content="Dark"
                         Margin="{StaticResource XSmallTopMargin}"
                         FontSize="{StaticResource MediumFontSize}"
+                        Content="{x:Static strings:Resources.SettingsPageRadioButtonDarkTheme}"
                         IsChecked="{Binding Theme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
@@ -63,9 +64,9 @@
             </StackPanel>
 
             <TextBlock
-                Text="About this application"
                 Margin="{StaticResource SmallTopMargin}"
-                Style="{StaticResource SubtitleTextStyle}" />
+                Style="{StaticResource SubtitleTextStyle}"
+                Text="{x:Static strings:Resources.SettingsPageAboutTitle}" />
             <TextBlock
                 Text="{Binding VersionDescription, Mode=OneWay}"
                 Margin="{StaticResource XSmallTopMargin}"
@@ -73,13 +74,13 @@
             <TextBlock
                 Margin="{StaticResource XSmallTopMargin}"
                 Style="{StaticResource BodyTextStyle}"
-                Text="Settings page placeholder text.  Your app description goes here." />
+                Text="{x:Static strings:Resources.SettingsPageAboutText}" />
 
             <TextBlock Margin="{StaticResource SmallTopMargin}">
                 <Hyperlink Command="{Binding PrivacyStatementCommand}">
                     <TextBlock
-                        Text="Privacy Statement"
-                        Style="{StaticResource BodyTextStyle}" />
+                        Style="{StaticResource BodyTextStyle}"
+                        Text="{x:Static strings:Resources.SettingsPagePrivacyStatementText}" />
                 </Hyperlink>
             </TextBlock>
         </StackPanel>

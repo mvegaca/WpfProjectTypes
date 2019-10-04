@@ -6,19 +6,18 @@ using BlankProject.Contracts.Services;
 using BlankProject.Contracts.ViewModels;
 using BlankProject.Helpers;
 using BlankProject.Models;
+using Microsoft.Extensions.Options;
 
 namespace BlankProject.ViewModels
 {
     public class SettingsViewModel : Observable, INavigationAware
     {
+        private AppConfig _config;
         private AppTheme _theme;
         private string _versionDescription;
         private IThemeSelectorService _themeSelectorService;
         private ICommand _setThemeCommand;
         private ICommand _privacyStatementCommand;
-
-        public ICommand SetThemeCommand => _setThemeCommand ?? (_setThemeCommand = new RelayCommand<string>(OnSetTheme));
-        public ICommand PrivacyStatementCommand => _privacyStatementCommand ?? (_privacyStatementCommand = new RelayCommand(OnPrivacyStatement));
 
         public AppTheme Theme
         {
@@ -32,8 +31,12 @@ namespace BlankProject.ViewModels
             set { Set(ref _versionDescription, value); }
         }
 
-        public SettingsViewModel(IThemeSelectorService themeSelectorService)
+        public ICommand SetThemeCommand => _setThemeCommand ?? (_setThemeCommand = new RelayCommand<string>(OnSetTheme));
+        public ICommand PrivacyStatementCommand => _privacyStatementCommand ?? (_privacyStatementCommand = new RelayCommand(OnPrivacyStatement));
+
+        public SettingsViewModel(IOptions<AppConfig> config, IThemeSelectorService themeSelectorService)
         {
+            _config = config.Value;
             _themeSelectorService = themeSelectorService;
         }
 
@@ -67,7 +70,7 @@ namespace BlankProject.ViewModels
             // https://github.com/dotnet/corefx/issues/10361
             ProcessStartInfo psi = new ProcessStartInfo
             {
-                FileName = "https://YourPrivacyUrlGoesHere/",
+                FileName = _config.PrivacyStatement,
                 UseShellExecute = true
             };
             Process.Start(psi);
