@@ -1,9 +1,6 @@
-﻿using System.Windows;
-using System.Windows.Input;
-using MahApps.Metro.Controls;
+﻿using System.Windows.Input;
 using MenuBarProject.Contracts.Services;
 using MenuBarProject.Helpers;
-using MenuBarProject.Services;
 
 namespace MenuBarProject.ViewModels
 {

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:strings="clr-namespace:MenuBarProject.Strings"
     Style="{DynamicResource MetroPage}"
     mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="800"      
@@ -14,19 +15,19 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock
-            Text="Blank 2"
             Margin="{StaticResource MediumLeftMargin}"
-            Style="{StaticResource PageTitleStyle}" />
+            Style="{StaticResource PageTitleStyle}"
+            Text="{x:Static strings:Resources.Blank2PageTitle}" />
         <StackPanel
             Grid.Row="1">
             <StackPanel Orientation="Horizontal" Margin="0,24,0,0">
-                <TextBlock Text="Text sent from Main Window:" Margin="12,0,0,0" />
-                <TextBlock Text="{Binding OtherWindowsData}" Margin="12,0,0,0" />
+                <TextBlock Text="Text sent from Main Window:" Margin="12,0,0,0" Style="{StaticResource BodyTextStyle}" />
+                <TextBlock Text="{Binding OtherWindowsData}" Margin="12,0,0,0" Style="{StaticResource BodyTextStyle}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,24,0,0">
-                <TextBlock Text="Data to send to Main Window:" Margin="12,0,0,0" />
+                <TextBlock Text="Data to send to Main Window:" Margin="12,0,0,0" Style="{StaticResource BodyTextStyle}" />
                 <TextBox Text="{Binding DataToSend, Mode=TwoWay}" Margin="12,0,0,0" Width="200" />
-                <Button Content="Send" Command="{Binding SendCommand}" Margin="12,0,0,0"/>
+                <Button Content="Send" Command="{Binding SendCommand}" Margin="12,0,0,0" />
             </StackPanel>
         </StackPanel>
     </Grid>
