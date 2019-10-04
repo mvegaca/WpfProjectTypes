@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Input;
+using Microsoft.Extensions.Options;
 using RibbonProject.Contracts.Services;
 using RibbonProject.Contracts.ViewModels;
 using RibbonProject.Helpers;
@@ -11,6 +12,8 @@ namespace RibbonProject.ViewModels
 {
     public class SettingsViewModel : Observable, INavigationAware
     {
+
+        private AppConfig _config;
         private AppTheme _theme;
         private string _versionDescription;
         private IThemeSelectorService _themeSelectorService;
@@ -32,8 +35,9 @@ namespace RibbonProject.ViewModels
             set { Set(ref _versionDescription, value); }
         }
 
-        public SettingsViewModel(IThemeSelectorService themeSelectorService)
+        public SettingsViewModel(IOptions<AppConfig> config, IThemeSelectorService themeSelectorService)
         {
+            _config = config.Value;
             _themeSelectorService = themeSelectorService;
         }
 
@@ -67,7 +71,7 @@ namespace RibbonProject.ViewModels
             // https://github.com/dotnet/corefx/issues/10361
             ProcessStartInfo psi = new ProcessStartInfo
             {
-                FileName = "https://YourPrivacyUrlGoesHere/",
+                FileName = _config.PrivacyStatement,
                 UseShellExecute = true
             };
             Process.Start(psi);

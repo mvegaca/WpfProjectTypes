@@ -7,6 +7,7 @@
     xmlns:Fluent="urn:fluent-ribbon"
     xmlns:behaviors="clr-namespace:RibbonProject.Behaviors"
     xmlns:models="clr-namespace:RibbonProject.Models"
+    xmlns:strings="clr-namespace:RibbonProject.Strings"
     Style="{DynamicResource MetroPage}"
     mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="800"      
@@ -15,13 +16,13 @@
         <models:RibbonPageConfiguration>
             <models:RibbonPageConfiguration.Tabs>
                 <Fluent:RibbonTabItem
-                    Header="Secondary 1"
                     Fluent:KeyTip="M"
-                    behaviors:RibbonTabsBehavior.IsTabFromPage="True" />
+                    behaviors:RibbonTabsBehavior.IsTabFromPage="True"
+                    Header="{x:Static strings:Resources.SecondaryPageRibbonTab1Header}" />
                 <Fluent:RibbonTabItem
-                    Header="Secondary 2"
                     Fluent:KeyTip="N"
-                    behaviors:RibbonTabsBehavior.IsTabFromPage="True" />
+                    behaviors:RibbonTabsBehavior.IsTabFromPage="True"
+                    Header="{x:Static strings:Resources.SecondaryPageRibbonTab2Header}" />
             </models:RibbonPageConfiguration.Tabs>
         </models:RibbonPageConfiguration>
     </behaviors:RibbonTabsBehavior.PageConfiguration>
@@ -32,9 +33,9 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock
-                Text="Secondary"
+                Style="{StaticResource PageTitleStyle}"
                 Margin="{StaticResource MediumLeftMargin}"
-                Style="{StaticResource PageTitleStyle}" />
+                Text="{x:Static strings:Resources.SecondaryPageTitle}" />
             <Grid
                 Grid.Row="1"
                 Margin="{StaticResource MediumLeftRightMargin}"

@@ -36,42 +36,62 @@
                             <i:Interaction.Behaviors>
                                 <behaviors:BackstageTabNavigationBehavior x:Name="navigationBehavior" />
                             </i:Interaction.Behaviors>
-                            <Fluent:BackstageTabItem Header="Settings" Tag="RibbonProject.ViewModels.SettingsViewModel" />
-                            <Fluent:BackstageTabItem Header="Main" Tag="RibbonProject.ViewModels.MainViewModel" />
-                            <Fluent:Button Header="Navigate to Main Page" Command="{Binding NavigateCommand}" CommandParameter="RibbonProject.ViewModels.MainViewModel" />
-                            <Fluent:Button Header="Navigate to Secondary Page" Command="{Binding NavigateCommand}" CommandParameter="RibbonProject.ViewModels.SecondaryViewModel" />
-                            <Fluent:Button Header="Show Main in Dialog" Command="{Binding ShowInDialogCommand}" CommandParameter="RibbonProject.ViewModels.MainViewModel" />
-                            <Fluent:Button Header="Show Main in a New Window" Command="{Binding OpenInANewWindowCommand}" CommandParameter="RibbonProject.ViewModels.MainViewModel" />
-                            <Fluent:Button Header="Show Main in right pane" Command="{Binding OpenInRightPaneCommand}" CommandParameter="RibbonProject.ViewModels.MainViewModel" />
+                            <Fluent:BackstageTabItem
+                                Tag="RibbonProject.ViewModels.SettingsViewModel"
+                                Header="{x:Static strings:Resources.ShellPageRibbonBackstageTabSettingsHeader}" />
+                            <Fluent:BackstageTabItem
+                                Header="Main"
+                                Tag="RibbonProject.ViewModels.MainViewModel" />
+                            <Fluent:Button
+                                Header="Navigate to Main Page"
+                                Command="{Binding NavigateCommand}"
+                                CommandParameter="RibbonProject.ViewModels.MainViewModel" />
+                            <Fluent:Button
+                                Header="Navigate to Secondary Page"
+                                Command="{Binding NavigateCommand}"
+                                CommandParameter="RibbonProject.ViewModels.SecondaryViewModel" />
+                            <Fluent:Button
+                                Header="Show Main in Dialog"
+                                Command="{Binding ShowInDialogCommand}"
+                                CommandParameter="RibbonProject.ViewModels.MainViewModel" />
+                            <Fluent:Button
+                                Header="Show Main in a New Window"
+                                Command="{Binding OpenInANewWindowCommand}"
+                                CommandParameter="RibbonProject.ViewModels.MainViewModel" />
+                            <Fluent:Button
+                                Header="Show Main in right pane"
+                                Command="{Binding OpenInRightPaneCommand}"
+                                CommandParameter="RibbonProject.ViewModels.MainViewModel" />
                         </Fluent:BackstageTabControl>
                     </Fluent:Backstage>
                 </Fluent:Ribbon.Menu>
 
                 <!--QuickAccessItems-->
-                <Fluent:Ribbon.QuickAccessItems>
+                <!--<Fluent:Ribbon.QuickAccessItems>
                     <Fluent:QuickAccessMenuItem IsChecked="true" Header="Holaaa">
                         <Fluent:Button Header="Pink" />
                     </Fluent:QuickAccessMenuItem>
 
-                    <!--You Can Just Bind with Any Control-->
+                    --><!--You Can Just Bind with Any Control--><!--
                     <Fluent:QuickAccessMenuItem Target="{Binding ElementName=buttonGreen}" />
-                </Fluent:Ribbon.QuickAccessItems>
+                </Fluent:Ribbon.QuickAccessItems>-->
                 <i:Interaction.Behaviors>
                     <behaviors:RibbonTabsBehavior x:Name="tabsBehavior" />
                 </i:Interaction.Behaviors>
 
                 <!--Tabs-->
-                <Fluent:RibbonTabItem Header="Home" Fluent:KeyTip="A">
+                <Fluent:RibbonTabItem
+                    Fluent:KeyTip="A"
+                    Header="{x:Static strings:Resources.ShellPageRibbonTabHomeHeader}">
                     <Fluent:RibbonGroupBox
-                        Header="Common Group 1"
                         State="Large"
-                        Grid.IsSharedSizeScope="True"
-                        MinWidth="150">
+                        MinWidth="150"
+                        Header="{x:Static strings:Resources.ShellPageRibbonHomeGroupCommon1Header}">
                     </Fluent:RibbonGroupBox>
                     <Fluent:RibbonGroupBox
-                        Header="Common Group 2"
                         State="Middle"
-                        MinWidth="150">
+                        MinWidth="150"
+                        Header="{x:Static strings:Resources.ShellPageRibbonHomeGroupCommon2Header}">
                     </Fluent:RibbonGroupBox>
                 </Fluent:RibbonTabItem>
             </Fluent:Ribbon>
