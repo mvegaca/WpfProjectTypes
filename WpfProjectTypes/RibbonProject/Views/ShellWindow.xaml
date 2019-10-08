@@ -12,8 +12,8 @@
     mc:Ignorable="d"
     ShowSystemMenuOnRightClick="False"
     Loaded="MetroWindow_Loaded"
-    ShowTitleBar="True"
-    Title="RibbonProject" Height="450" Width="800">
+    Style="{StaticResource CustomMetroWindow}"
+    Title="RibbonProject">
 
     <controls:MetroWindow.TitleTemplate>
         <DataTemplate>

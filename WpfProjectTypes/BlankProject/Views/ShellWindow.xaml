@@ -5,10 +5,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    Style="{StaticResource CustomMetroWindow}"
     mc:Ignorable="d"
-    ShowTitleBar="True"
-    Title="BlankProject" Height="450" Width="800">
+    Title="BlankProject">
     <controls:MetroWindow.LeftWindowCommands>
         <controls:WindowCommands>
             <Button

@@ -5,9 +5,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    Style="{StaticResource CustomMetroWindow}"
     mc:Ignorable="d"
-    ShowTitleBar="True"
-    Title="MenuBarProject" Height="450" Width="800">
+    Title="MenuBarProject">
     <controls:MetroWindow.Content>
         <Grid>
             <Grid.RowDefinitions>
