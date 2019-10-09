@@ -1,49 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Navigation;
+using MahApps.Metro.Controls;
 using MenuBarProject.Contracts.Services;
 using MenuBarProject.Contracts.ViewModels;
+using MenuBarProject.Helpers;
 
 namespace MenuBarProject.Services
 {
     public class RightPaneService : IRightPaneService
     {
         private Frame _frame;
-        private IServiceProvider _serviceProvider;
-        private INavigationService _navigationService;
+        private IPageService _pageService;
         private object _lastParameterUsed;
-        private Action _openRightPane;
+        private SplitView _splitView;
 
-        public RightPaneService(IServiceProvider serviceProvider, INavigationService navigationService)
+        public RightPaneService(IPageService pageService)
         {
-            _serviceProvider = serviceProvider;
-            _navigationService = navigationService;
+            _pageService = pageService;
         }
 
-        public void Initialize(Frame rightPaneFrame, Action openRightPane)
+        public void Initialize(Frame rightPaneFrame, SplitView splitView)
         {
             _frame = rightPaneFrame;
-            _openRightPane = openRightPane;
+            _splitView = splitView;
             _frame.Navigated += OnNavigated;
         }
 
-        public void OpenInRightPane(string viewModelName, object parameter = null)
+        public void OpenInRightPane(string pageKey, object parameter = null)
         {
-            var pageType = _navigationService.GetPageType(viewModelName);
+            var pageType = _pageService.GetPageType(pageKey);
             if (_frame.Content?.GetType() != pageType || (parameter != null && !parameter.Equals(_lastParameterUsed)))
             {
-                var page = _serviceProvider.GetService(pageType);
-                if (_frame.Content is FrameworkElement element)
+                var dataContext = _frame.GetDataContext();
+                if (dataContext is INavigationAware navigationAware)
                 {
-                    if (element.DataContext is INavigationAware navigationAware)
-                    {
-                        navigationAware.OnNavigatingFrom();
-                    }
+                    navigationAware.OnNavigatingFrom();
                 }
 
+                var page = _pageService.GetPage(pageKey);
                 var navigated = _frame.Navigate(page, parameter);
                 if (navigated)
                 {
@@ -51,14 +45,16 @@ namespace MenuBarProject.Services
                 }
             }
 
-            _openRightPane();
+            _splitView.IsPaneOpen = true;
         }
 
         private void OnNavigated(object sender, NavigationEventArgs e)
         {
-            if (e.Content is FrameworkElement element)
+            if (sender is Frame frame)
             {
-                if (element.DataContext is INavigationAware navigationAware)
+                frame.CleanNavigation();
+                var dataContext = frame.GetDataContext();
+                if (dataContext is INavigationAware navigationAware)
                 {
                     navigationAware.OnNavigatedTo(e.ExtraData);
                 }

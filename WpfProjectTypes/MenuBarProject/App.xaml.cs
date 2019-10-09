@@ -32,6 +32,7 @@ namespace MenuBarProject
             services.AddHostedService<ApplicationHostService>();
 
             // Services
+            services.AddSingleton<IPageService, PageService>();
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<IWindowManagerService, WindowManagerService>();
             services.AddSingleton<IRightPaneService, RightPaneService>();

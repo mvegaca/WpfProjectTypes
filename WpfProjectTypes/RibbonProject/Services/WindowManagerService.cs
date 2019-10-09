@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -14,51 +12,79 @@ namespace RibbonProject.Services
     public class WindowManagerService : IWindowManagerService
     {
         private IServiceProvider _serviceProvider;
-        private INavigationService _navigationService;
+        private IPageService _pageService;
 
-        public WindowManagerService(IServiceProvider serviceProvider, INavigationService navigationService)
+        public Window MainWindow
+            => Application.Current.MainWindow;
+
+        public WindowManagerService(IServiceProvider serviceProvider, IPageService pageService)
         {
             _serviceProvider = serviceProvider;
-            _navigationService = navigationService;
+            _pageService = pageService;
         }
 
-        public void OpenInNewWindow(string viewModelName, object parameter = null)
+        public void OpenInNewWindow(string key, object parameter = null)
         {
-            var window = new MetroWindow()
+            var window = GetWindow(key);
+            if (window != null)
             {
-                Title = "MenuBarProject"
-            };
-            var frame = new Frame()
+                window.Activate();
+            }
+            else
             {
-                Focusable = false,
-                NavigationUIVisibility = NavigationUIVisibility.Hidden
-            };
-            frame.Navigated += OnNavigated;
-            window.Closed += OnWindowClosed;
-            window.Content = frame;
-            var pageType = _navigationService.GetPageType(viewModelName);
-            var page = _serviceProvider.GetService(pageType);
-            window.Show();
-            var navigated = frame.Navigate(page, parameter);
+                window = new MetroWindow()
+                {
+                    Title = "MenuBarProject",
+                    Style = Application.Current.FindResource("CustomMetroWindow") as Style,
+                    Left = Application.Current.MainWindow.Left + 50,
+                    Top = Application.Current.MainWindow.Top + 50
+                };
+                var frame = new Frame()
+                {
+                    Focusable = false,
+                    NavigationUIVisibility = NavigationUIVisibility.Hidden
+                };
+
+                window.Content = frame;
+                var page = _pageService.GetPage(key);
+                window.Closed += OnWindowClosed;
+                window.Show();
+                frame.Navigated += OnNavigated;
+                var navigated = frame.Navigate(page, parameter);
+            }
         }
 
-        public bool? OpenInDialog(string viewModelName, object parameter = null)
+        public bool? OpenInDialog(string key, object parameter = null)
         {
             var shellWindow = _serviceProvider.GetService(typeof(IShellDialogWindow)) as Window;
             var frame = ((IShellDialogWindow)shellWindow).GetDialogFrame();
             frame.Navigated += OnNavigated;
             shellWindow.Closed += OnWindowClosed;
-            var pageType = _navigationService.GetPageType(viewModelName);
-            var page = _serviceProvider.GetService(pageType);
+            var page = _pageService.GetPage(key);
             var navigated = frame.Navigate(page, parameter);
             return shellWindow.ShowDialog();
         }
 
+        public Window GetWindow(string key)
+        {
+            foreach (Window window in Application.Current.Windows)
+            {
+                var dataContext = window.GetDataContext();
+                if (dataContext?.GetType().FullName == key)
+                {
+                    return window;
+                }
+            }
+
+            return null;
+        }
+
         private void OnNavigated(object sender, NavigationEventArgs e)
         {
-            if (e.Content is FrameworkElement element)
+            if (sender is Frame frame)
             {
-                if (element.DataContext is INavigationAware navigationAware)
+                var dataContext = frame.GetDataContext();
+                if (dataContext is INavigationAware navigationAware)
                 {
                     navigationAware.OnNavigatedTo(e.ExtraData);
                 }

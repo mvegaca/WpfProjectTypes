@@ -25,7 +25,7 @@ namespace MenuBarProject.Views
         public void ShowWindow()
             => Show();
 
-        public void OpenRightPane()
-            => splitView.IsPaneOpen = true;
+        public SplitView GetSplitView()
+            => splitView;
     }
 }

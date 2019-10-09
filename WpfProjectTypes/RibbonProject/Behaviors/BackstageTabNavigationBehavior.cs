@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using Fluent;
@@ -11,15 +10,15 @@ namespace RibbonProject.Behaviors
 {
     public class BackstageTabNavigationBehavior : Behavior<BackstageTabControl>
     {
-        private IServiceProvider _serviceProvider;
+        private IPageService _pageService;
 
         public BackstageTabNavigationBehavior()
         {
         }
 
-        public void Initialize(IServiceProvider serviceProvider)
+        public void Initialize(IPageService pageService)
         {
-            _serviceProvider = serviceProvider;
+            _pageService = pageService;
         }
 
         protected override void OnAttached()
@@ -38,7 +37,6 @@ namespace RibbonProject.Behaviors
         {
             if (e.AddedItems.Count > 0 && e.AddedItems[0] is BackstageTabItem tabItem)
             {
-                var navigationService = _serviceProvider.GetService(typeof(INavigationService)) as INavigationService;
                 var frame = new Frame()
                 {
                     Focusable = false,
@@ -46,8 +44,7 @@ namespace RibbonProject.Behaviors
                 };
                 frame.Navigated += OnNavigated;
                 tabItem.Content = frame;
-                var pageType = navigationService.GetPageType(tabItem.Tag as string);
-                var page = _serviceProvider.GetService(pageType);
+                var page = _pageService.GetPage(tabItem.Tag as string);
                 frame.Navigate(page);
             }
         }

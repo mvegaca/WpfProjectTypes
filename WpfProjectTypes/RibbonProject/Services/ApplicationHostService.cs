@@ -23,7 +23,7 @@ namespace RibbonProject.Services
             _navigationService.Initialize(_shellWindow.GetNavigationFrame());
             var behavior = _shellWindow.GetRibbonTabsBehavior();
             behavior.Initialize(_navigationService);
-            rightPaneService.Initialize(_shellWindow.GetRightPaneFrame(), _shellWindow.OpenRightPane);
+            rightPaneService.Initialize(_shellWindow.GetRightPaneFrame(), _shellWindow.GetSplitView());
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)

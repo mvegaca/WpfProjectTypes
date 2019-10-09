@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -7,29 +6,26 @@ using MahApps.Metro.Controls;
 using MenuBarProject.Contracts.Services;
 using MenuBarProject.Contracts.ViewModels;
 using MenuBarProject.Contracts.Views;
-using MenuBarProject.Helpers;
 
 namespace MenuBarProject.Services
 {
     public class WindowManagerService : IWindowManagerService
     {
         private IServiceProvider _serviceProvider;
-        private INavigationService _navigationService;
-
-        private Dictionary<string, Window> SecondaryWindows { get; } = new Dictionary<string, Window>();
+        private IPageService _pageService;
 
         public Window MainWindow
             => Application.Current.MainWindow;
 
-        public WindowManagerService(IServiceProvider serviceProvider, INavigationService navigationService)
+        public WindowManagerService(IServiceProvider serviceProvider, IPageService pageService)
         {
             _serviceProvider = serviceProvider;
-            _navigationService = navigationService;
+            _pageService = pageService;
         }
 
-        public void OpenInNewWindow(string viewModelName, object parameter = null)
+        public void OpenInNewWindow(string key, object parameter = null)
         {
-            var window = SecondaryWindows.GetValueOrDefault(viewModelName);
+            var window = GetWindow(key);
             if (window != null)
             {
                 window.Activate();
@@ -38,7 +34,10 @@ namespace MenuBarProject.Services
             {
                 window = new MetroWindow()
                 {
-                    Title = "MenuBarProject"
+                    Title = "MenuBarProject",
+                    Style = Application.Current.FindResource("CustomMetroWindow") as Style,
+                    Left = Application.Current.MainWindow.Left + 50,
+                    Top = Application.Current.MainWindow.Top + 50
                 };
                 var frame = new Frame()
                 {
@@ -47,42 +46,33 @@ namespace MenuBarProject.Services
                 };
 
                 window.Content = frame;
-                var pageType = _navigationService.GetPageType(viewModelName);
-                var page = _serviceProvider.GetService(pageType);
+                var page = _pageService.GetPage(key);
                 window.Closed += OnWindowClosed;
-                SecondaryWindows.Add(viewModelName, window);
                 window.Show();
                 frame.Navigated += OnNavigated;
                 var navigated = frame.Navigate(page, parameter);
             }
         }
 
-        public bool? OpenInDialog(string viewModelName, object parameter = null)
+        public bool? OpenInDialog(string key, object parameter = null)
         {
             var shellWindow = _serviceProvider.GetService(typeof(IShellDialogWindow)) as Window;
             var frame = ((IShellDialogWindow)shellWindow).GetDialogFrame();
             frame.Navigated += OnNavigated;
             shellWindow.Closed += OnWindowClosed;
-            var pageType = _navigationService.GetPageType(viewModelName);
-            var page = _serviceProvider.GetService(pageType);
+            var page = _pageService.GetPage(key);
             var navigated = frame.Navigate(page, parameter);
             return shellWindow.ShowDialog();
         }
 
-        public Window GetWindow(string viewModelName)
-            => SecondaryWindows.GetValueOrDefault(viewModelName);
-
-        public Observable GetViewModel(string viewModelName)
+        public Window GetWindow(string key)
         {
-            var window = SecondaryWindows.GetValueOrDefault(viewModelName);
-            if (window != null)
+            foreach (Window window in Application.Current.Windows)
             {
-                if (window.Content is Frame frame)
+                var dataContext = window.GetDataContext();
+                if (dataContext?.GetType().FullName == key)
                 {
-                    if (frame.Content is FrameworkElement frameworkElement)
-                    {
-                        return frameworkElement.DataContext as Observable;
-                    }
+                    return window;
                 }
             }
 
@@ -91,9 +81,10 @@ namespace MenuBarProject.Services
 
         private void OnNavigated(object sender, NavigationEventArgs e)
         {
-            if (e.Content is FrameworkElement element)
+            if (sender is Frame frame)
             {
-                if (element.DataContext is INavigationAware navigationAware)
+                var dataContext = frame.GetDataContext();
+                if (dataContext is INavigationAware navigationAware)
                 {
                     navigationAware.OnNavigatedTo(e.ExtraData);
                 }
@@ -107,11 +98,6 @@ namespace MenuBarProject.Services
                 if (window.Content is Frame frame)
                 {
                     frame.Navigated -= OnNavigated;
-                    if (frame.Content is FrameworkElement frameworkElement)
-                    {
-                        var viewModelName = frameworkElement.DataContext.GetType().FullName;
-                        SecondaryWindows.Remove(viewModelName);
-                    }
                 }
 
                 window.Closed -= OnWindowClosed;

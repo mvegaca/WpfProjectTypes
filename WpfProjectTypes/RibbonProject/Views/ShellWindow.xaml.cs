@@ -17,11 +17,11 @@ namespace RibbonProject.Views
     {
         private RibbonTitleBar _titleBar;
 
-        public ShellWindow(ShellWindowViewModel viewModel, IServiceProvider serviceProvider, INavigationService navigationService)
+        public ShellWindow(ShellWindowViewModel viewModel, IPageService pageService)
         {
             InitializeComponent();
             DataContext = viewModel;
-            navigationBehavior.Initialize(serviceProvider);
+            navigationBehavior.Initialize(pageService);
         }
 
         public Frame GetNavigationFrame()
@@ -33,8 +33,8 @@ namespace RibbonProject.Views
         public Frame GetRightPaneFrame()
             => rightPaneFrame;
 
-        public void OpenRightPane()
-            => splitView.IsPaneOpen = true;
+        public SplitView GetSplitView()
+            => splitView;
 
         public void ShowWindow()
             => Show();

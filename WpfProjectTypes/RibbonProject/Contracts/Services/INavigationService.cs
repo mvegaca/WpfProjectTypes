@@ -11,8 +11,6 @@ namespace RibbonProject.Contracts.Services
 
         void Initialize(Frame shellFrame);
 
-        Type GetPageType(string viewModelName);
-
         bool Navigate(string viewModelName, object parameter = null, bool clearNavigation = false);
 
         void GoBack();

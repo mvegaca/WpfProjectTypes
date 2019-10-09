@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using MahApps.Metro.Controls;
 
 namespace MenuBarProject.Contracts.Views
 {
@@ -10,6 +11,6 @@ namespace MenuBarProject.Contracts.Views
 
         void ShowWindow();
 
-        void OpenRightPane();
+        SplitView GetSplitView();
     }
 }

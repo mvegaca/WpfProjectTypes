@@ -21,7 +21,7 @@ namespace MenuBarProject.Services
             _shellWindow = shellWindow;
             _navigationService = navigationService;
             _navigationService.Initialize(_shellWindow.GetNavigationFrame());
-            rightPaneService.Initialize(_shellWindow.GetRightPaneFrame(), _shellWindow.OpenRightPane);
+            rightPaneService.Initialize(_shellWindow.GetRightPaneFrame(), _shellWindow.GetSplitView());
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)

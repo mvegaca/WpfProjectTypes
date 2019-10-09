@@ -1,5 +1,5 @@
-﻿using System;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using MahApps.Metro.Controls;
 
 namespace MenuBarProject.Contracts.Services
 {
@@ -7,6 +7,6 @@ namespace MenuBarProject.Contracts.Services
     {
         void OpenInRightPane(string viewModelName, object parameter = null);
 
-        void Initialize(Frame rightPaneFrame, Action openRightPane);
+        void Initialize(Frame rightPaneFrame, SplitView splitView);
     }
 }

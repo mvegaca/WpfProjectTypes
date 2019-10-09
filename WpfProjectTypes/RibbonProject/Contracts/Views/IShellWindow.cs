@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 using Fluent;
+using MahApps.Metro.Controls;
 using RibbonProject.Behaviors;
 
 namespace RibbonProject.Contracts.Views
@@ -14,6 +15,6 @@ namespace RibbonProject.Contracts.Views
 
         void ShowWindow();
 
-        void OpenRightPane();
+        SplitView GetSplitView();
     }
 }

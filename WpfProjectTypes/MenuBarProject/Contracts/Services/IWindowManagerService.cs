@@ -12,7 +12,5 @@ namespace MenuBarProject.Contracts.Services
         bool? OpenInDialog(string viewModelName, object parameter = null);
 
         Window GetWindow(string viewModelName);
-
-        Observable GetViewModel(string viewModelName);
     }
 }
