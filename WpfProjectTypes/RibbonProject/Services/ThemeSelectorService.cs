@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Windows;
 using MahApps.Metro;
+using Microsoft.Win32;
 using RibbonProject.Contracts.Services;
 using RibbonProject.Models;
-using Microsoft.Win32;
 
 namespace RibbonProject.Services
 {
     public class ThemeSelectorService : IThemeSelectorService
     {
-        private bool _isHighContrastActive
+        private bool IsHighContrastActive
                         => SystemParameters.HighContrast;
 
         public ThemeSelectorService()
@@ -19,9 +19,9 @@ namespace RibbonProject.Services
 
         public bool SetTheme(AppTheme? theme = null)
         {
-            if (_isHighContrastActive)
+            if (IsHighContrastActive)
             {
-                //TODO: Set high contrast theme name
+                // TODO: Set high contrast theme name
             }
             else if (theme == null)
             {

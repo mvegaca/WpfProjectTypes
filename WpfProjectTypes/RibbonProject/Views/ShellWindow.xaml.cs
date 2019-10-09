@@ -11,7 +11,7 @@ using RibbonProject.ViewModels;
 namespace RibbonProject.Views
 {
     /// <summary>
-    /// Interaction logic for ShellWindow.xaml
+    /// Interaction logic for ShellWindow.xaml.
     /// </summary>
     public partial class ShellWindow : MetroWindow, IShellWindow
     {
@@ -22,7 +22,7 @@ namespace RibbonProject.Views
             InitializeComponent();
             DataContext = viewModel;
             navigationBehavior.Initialize(serviceProvider);
-        }        
+        }
 
         public Frame GetNavigationFrame()
             => shellFrame;

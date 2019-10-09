@@ -14,6 +14,5 @@ namespace BlankProject.Contracts.Services
         bool Navigate(string pageKey, object parameter = null);
 
         void GoBack();
-
     }
 }

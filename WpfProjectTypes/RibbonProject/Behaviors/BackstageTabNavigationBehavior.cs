@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text;
-using Fluent;
-using Microsoft.Xaml.Behaviors;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using Fluent;
+using Microsoft.Xaml.Behaviors;
 using RibbonProject.Contracts.Services;
-using System.Windows;
 using RibbonProject.Contracts.ViewModels;
 
 namespace RibbonProject.Behaviors
@@ -29,7 +26,6 @@ namespace RibbonProject.Behaviors
         {
             base.OnAttached();
             AssociatedObject.SelectionChanged += OnSelectionChanged;
-
         }
 
         protected override void OnDetaching()

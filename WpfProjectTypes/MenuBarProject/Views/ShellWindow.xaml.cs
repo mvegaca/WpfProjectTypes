@@ -6,7 +6,7 @@ using MenuBarProject.ViewModels;
 namespace MenuBarProject.Views
 {
     /// <summary>
-    /// Interaction logic for ShellWindow.xaml
+    /// Interaction logic for ShellWindow.xaml.
     /// </summary>
     public partial class ShellWindow : MetroWindow, IShellWindow
     {
@@ -20,7 +20,7 @@ namespace MenuBarProject.Views
             => shellFrame;
 
         public Frame GetRightPaneFrame()
-            => rightPaneFrame;        
+            => rightPaneFrame;
 
         public void ShowWindow()
             => Show();

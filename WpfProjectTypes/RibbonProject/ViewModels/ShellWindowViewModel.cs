@@ -32,7 +32,7 @@ namespace RibbonProject.ViewModels
         }
 
         private void OnShowInDialog(string viewModelName)
-            =>_windowManagerService.OpenInDialog(viewModelName);
+            => _windowManagerService.OpenInDialog(viewModelName);
 
         private void OnOpenInANewWindow(string viewModelName)
             => _windowManagerService.OpenInNewWindow(viewModelName);

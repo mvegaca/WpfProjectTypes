@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
 using RibbonProject.Contracts.Services;
 using RibbonProject.Contracts.Views;
 using RibbonProject.ViewModels;
-using Microsoft.Extensions.Hosting;
 
 namespace RibbonProject.Services
 {

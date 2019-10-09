@@ -16,7 +16,7 @@ namespace MenuBarProject.Services
         private IServiceProvider _serviceProvider;
         private INavigationService _navigationService;
 
-        private Dictionary<string, Window> _secondaryWindows { get; } = new Dictionary<string, Window>();
+        private Dictionary<string, Window> SecondaryWindows { get; } = new Dictionary<string, Window>();
 
         public Window MainWindow
             => Application.Current.MainWindow;
@@ -29,7 +29,7 @@ namespace MenuBarProject.Services
 
         public void OpenInNewWindow(string viewModelName, object parameter = null)
         {
-            var window = _secondaryWindows.GetValueOrDefault(viewModelName);
+            var window = SecondaryWindows.GetValueOrDefault(viewModelName);
             if (window != null)
             {
                 window.Activate();
@@ -46,12 +46,11 @@ namespace MenuBarProject.Services
                     NavigationUIVisibility = NavigationUIVisibility.Hidden
                 };
 
-
                 window.Content = frame;
                 var pageType = _navigationService.GetPageType(viewModelName);
                 var page = _serviceProvider.GetService(pageType);
                 window.Closed += OnWindowClosed;
-                _secondaryWindows.Add(viewModelName, window);
+                SecondaryWindows.Add(viewModelName, window);
                 window.Show();
                 frame.Navigated += OnNavigated;
                 var navigated = frame.Navigate(page, parameter);
@@ -71,11 +70,11 @@ namespace MenuBarProject.Services
         }
 
         public Window GetWindow(string viewModelName)
-            => _secondaryWindows.GetValueOrDefault(viewModelName);
+            => SecondaryWindows.GetValueOrDefault(viewModelName);
 
         public Observable GetViewModel(string viewModelName)
         {
-            var window = _secondaryWindows.GetValueOrDefault(viewModelName);
+            var window = SecondaryWindows.GetValueOrDefault(viewModelName);
             if (window != null)
             {
                 if (window.Content is Frame frame)
@@ -111,7 +110,7 @@ namespace MenuBarProject.Services
                     if (frame.Content is FrameworkElement frameworkElement)
                     {
                         var viewModelName = frameworkElement.DataContext.GetType().FullName;
-                        _secondaryWindows.Remove(viewModelName);
+                        SecondaryWindows.Remove(viewModelName);
                     }
                 }
 

@@ -13,10 +13,10 @@ namespace RibbonProject.Services
 {
     public class NavigationService : INavigationService
     {
+        private readonly Dictionary<string, Type> _pages = new Dictionary<string, Type>();
         private IServiceProvider _serviceProvider;
         private Frame _frame;
         private object _lastParameterUsed;
-        private readonly Dictionary<string, Type> _pages = new Dictionary<string, Type>();
 
         public event EventHandler<string> Navigated;
 
@@ -74,6 +74,7 @@ namespace RibbonProject.Services
                         navigationAware.OnNavigatingFrom();
                     }
                 }
+
                 _frame.Tag = clearNavigation;
                 var navigated = _frame.Navigate(page, parameter);
                 if (navigated)
@@ -95,7 +96,9 @@ namespace RibbonProject.Services
                 if (clearNavigation)
                 {
                     do
+                    {
                         frame.RemoveBackEntry();
+                    }
                     while (frame.CanGoBack);
                 }
             }

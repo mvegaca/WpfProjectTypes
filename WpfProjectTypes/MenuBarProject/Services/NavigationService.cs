@@ -14,10 +14,10 @@ namespace MenuBarProject.Services
 {
     public class NavigationService : INavigationService
     {
+        private readonly Dictionary<string, Type> _pages = new Dictionary<string, Type>();
         private IServiceProvider _serviceProvider;
         private Frame _frame;
         private object _lastParameterUsed;
-        private readonly Dictionary<string, Type> _pages = new Dictionary<string, Type>();
 
         public event EventHandler<string> Navigated;
 
@@ -91,6 +91,7 @@ namespace MenuBarProject.Services
                         navigationAware.OnNavigatingFrom();
                     }
                 }
+
                 _frame.Tag = clearNavigation;
                 var navigated = _frame.Navigate(page, parameter);
                 if (navigated)
@@ -112,7 +113,9 @@ namespace MenuBarProject.Services
                 if (clearNavigation)
                 {
                     do
+                    {
                         frame.RemoveBackEntry();
+                    }
                     while (frame.CanGoBack);
                 }
             }
@@ -140,6 +143,6 @@ namespace MenuBarProject.Services
             }
 
             return pageType;
-        }        
+        }
     }
 }

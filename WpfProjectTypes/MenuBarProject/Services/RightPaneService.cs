@@ -43,6 +43,7 @@ namespace MenuBarProject.Services
                         navigationAware.OnNavigatingFrom();
                     }
                 }
+
                 var navigated = _frame.Navigate(page, parameter);
                 if (navigated)
                 {

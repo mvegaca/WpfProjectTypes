@@ -2,9 +2,9 @@
 using System.Collections;
 using System.IO;
 using CoreProject.Contracts.Services;
+using Microsoft.Extensions.Options;
 using RibbonProject.Contracts.Services;
 using RibbonProject.Models;
-using Microsoft.Extensions.Options;
 
 namespace RibbonProject.Services
 {
@@ -12,7 +12,6 @@ namespace RibbonProject.Services
     {
         private readonly IFilesService _filesService;
         private readonly AppConfig _config;
-
         private string _localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
         public PersistAndRestoreService(IFilesService filesService, IOptions<AppConfig> config)

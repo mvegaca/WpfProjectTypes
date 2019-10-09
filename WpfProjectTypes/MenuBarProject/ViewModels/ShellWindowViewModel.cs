@@ -49,7 +49,7 @@ namespace MenuBarProject.ViewModels
         private void OnMenuViewsBlank3()
             => _windowManagerService.OpenInDialog(typeof(Blank3ViewModel).FullName);
 
-        private void OnMenuFileSettings()            
+        private void OnMenuFileSettings()
             => _rightPaneService.OpenInRightPane(typeof(SettingsViewModel).FullName);
 
         private void OnMenuFileExit()
