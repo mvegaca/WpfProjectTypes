@@ -4,7 +4,7 @@
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls">
 
     <Style
-        x:Key="CustomMetroWindow"
+        x:Key="MetroWindow"
         TargetType="{x:Type controls:MetroWindow}"
         BasedOn="{StaticResource {x:Type controls:MetroWindow}}">
         <Setter Property="ShowTitleBar" Value="True" />

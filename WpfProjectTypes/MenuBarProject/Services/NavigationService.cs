@@ -9,17 +9,13 @@ namespace MenuBarProject.Services
 {
     public class NavigationService : INavigationService
     {
-        private IPageService _pageService;
+        private readonly IPageService _pageService;
         private Frame _frame;
         private object _lastParameterUsed;
 
         public event EventHandler<string> Navigated;
 
-        public bool CanGoBack
-            => _frame.CanGoBack;
-
-        public Observable CurrentViewModel
-            => _frame.GetDataContext() as Observable;
+        public bool CanGoBack => _frame.CanGoBack;
 
         public NavigationService(IPageService pageService)
         {

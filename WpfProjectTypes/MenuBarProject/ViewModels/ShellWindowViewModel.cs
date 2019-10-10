@@ -7,9 +7,9 @@ namespace MenuBarProject.ViewModels
 {
     public class ShellWindowViewModel : Observable
     {
-        private INavigationService _navigationService;
-        private IRightPaneService _rightPaneService;
-        private IWindowManagerService _windowManagerService;
+        private readonly INavigationService _navigationService;
+        private readonly IRightPaneService _rightPaneService;
+        private readonly IWindowManagerService _windowManagerService;
 
         private ICommand _menuViewsMainCommand;
         private ICommand _menuViewsBlank1Command;

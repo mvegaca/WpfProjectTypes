@@ -52,8 +52,7 @@ namespace MenuBarProject.Services
         public AppTheme GetCurrentTheme()
         {
             var themeName = App.Current.Properties["Theme"]?.ToString();
-            var theme = AppTheme.Light;
-            Enum.TryParse(themeName, out theme);
+            Enum.TryParse(themeName, out AppTheme theme);
             return theme;
         }
 

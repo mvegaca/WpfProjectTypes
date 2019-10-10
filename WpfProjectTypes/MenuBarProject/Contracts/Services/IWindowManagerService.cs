@@ -7,10 +7,10 @@ namespace MenuBarProject.Contracts.Services
     {
         Window MainWindow { get; }
 
-        void OpenInNewWindow(string viewModelName, object parameter = null);
+        void OpenInNewWindow(string pageKey, object parameter = null);
 
-        bool? OpenInDialog(string viewModelName, object parameter = null);
+        bool? OpenInDialog(string pageKey, object parameter = null);
 
-        Window GetWindow(string viewModelName);
+        Window GetWindow(string pageKey);
     }
 }

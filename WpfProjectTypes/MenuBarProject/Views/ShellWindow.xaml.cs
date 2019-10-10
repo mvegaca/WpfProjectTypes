@@ -5,9 +5,6 @@ using MenuBarProject.ViewModels;
 
 namespace MenuBarProject.Views
 {
-    /// <summary>
-    /// Interaction logic for ShellWindow.xaml.
-    /// </summary>
     public partial class ShellWindow : MetroWindow, IShellWindow
     {
         public ShellWindow(ShellWindowViewModel viewModel)

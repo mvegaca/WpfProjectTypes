@@ -12,7 +12,7 @@ namespace MenuBarProject.Services
     public class PageService : IPageService
     {
         private readonly Dictionary<string, Type> _pages = new Dictionary<string, Type>();
-        private IServiceProvider _serviceProvider;
+        private readonly IServiceProvider _serviceProvider;
 
         public PageService(IServiceProvider serviceProvider)
         {

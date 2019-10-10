@@ -6,8 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     mc:Ignorable="d"
-    ShowTitleBar="True"
-    Title="MenuBarProject" Height="450" Width="800">
+    Style="{StaticResource MetroWindow}"
+    Title="MenuBarProject">
     <controls:MetroWindow.Content>
         <Grid>
             <Grid.RowDefinitions>

@@ -9,8 +9,8 @@ namespace MenuBarProject.Services
 {
     public class RightPaneService : IRightPaneService
     {
+        private readonly IPageService _pageService;
         private Frame _frame;
-        private IPageService _pageService;
         private object _lastParameterUsed;
         private SplitView _splitView;
 

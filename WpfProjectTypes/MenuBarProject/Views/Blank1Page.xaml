@@ -15,15 +15,15 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock
-            Margin="{StaticResource MediumLeftMargin}"
             Style="{StaticResource PageTitleStyle}"
+            Margin="{StaticResource MediumLeftMargin}"
             Text="{x:Static strings:Resources.Blank1PageTitle}" />
         <Grid
             Grid.Row="1"
             Margin="{StaticResource MediumLeftRightMargin}"
             Background="{DynamicResource MahApps.Brushes.Gray10}">
             <!--
-            The Mahapps Gray10 color represents where you should place your content. 
+            The Mahapps Gray10 color represents where you should place your content.
             Place your content here.
             -->
         </Grid>

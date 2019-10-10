@@ -12,9 +12,7 @@ namespace MenuBarProject.Contracts.Services
 
         void Initialize(Frame shellFrame);
 
-        Observable CurrentViewModel { get; }
-
-        bool Navigate(string viewModelName, object parameter = null, bool clearNavigation = false);
+        bool Navigate(string pageKey, object parameter = null, bool clearNavigation = false);
 
         void GoBack();
     }
