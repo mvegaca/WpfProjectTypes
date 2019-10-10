@@ -9,16 +9,13 @@ namespace RibbonProject.Services
 {
     public class NavigationService : INavigationService
     {
-        private IPageService _pageService;
+        private readonly IPageService _pageService;
         private Frame _frame;
         private object _lastParameterUsed;
 
         public event EventHandler<string> Navigated;
 
         public bool CanGoBack => _frame.CanGoBack;
-
-        public Observable CurrentViewModel
-            => _frame.GetDataContext() as Observable;
 
         public NavigationService(IPageService pageService)
         {
@@ -40,6 +37,7 @@ namespace RibbonProject.Services
         public bool Navigate(string pageKey, object parameter = null, bool clearNavigation = false)
         {
             var pageType = _pageService.GetPageType(pageKey);
+
             if (_frame.Content?.GetType() != pageType || (parameter != null && !parameter.Equals(_lastParameterUsed)))
             {
                 var dataContext = _frame.GetDataContext();

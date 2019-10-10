@@ -8,9 +8,9 @@ namespace RibbonProject.ViewModels
 {
     public class ShellWindowViewModel : Observable
     {
-        private INavigationService _navigationService;
-        private IWindowManagerService _windowManagerService;
-        private IRightPaneService _rightPaneService;
+        private readonly INavigationService _navigationService;
+        private readonly IWindowManagerService _windowManagerService;
+        private readonly IRightPaneService _rightPaneService;
         private ICommand _showInDialogCommand;
         private ICommand _openInANewWindowCommand;
         private ICommand _openInRightPaneCommand;
@@ -31,16 +31,16 @@ namespace RibbonProject.ViewModels
             _rightPaneService = rightPaneService;
         }
 
-        private void OnShowInDialog(string viewModelName)
-            => _windowManagerService.OpenInDialog(viewModelName);
+        private void OnShowInDialog(string pageKey)
+            => _windowManagerService.OpenInDialog(pageKey);
 
-        private void OnOpenInANewWindow(string viewModelName)
-            => _windowManagerService.OpenInNewWindow(viewModelName);
+        private void OnOpenInANewWindow(string pageKey)
+            => _windowManagerService.OpenInNewWindow(pageKey);
 
-        private void OnOpenInRightPane(string viewModelName)
-            => _rightPaneService.OpenInRightPane(viewModelName);
+        private void OnOpenInRightPane(string pageKey)
+            => _rightPaneService.OpenInRightPane(pageKey);
 
-        private void OnNavigate(string viewModelName)
-            => _navigationService.Navigate(viewModelName, null, true);
+        private void OnNavigate(string pageKey)
+            => _navigationService.Navigate(pageKey, null, true);
     }
 }

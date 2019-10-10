@@ -5,9 +5,6 @@ using RibbonProject.ViewModels;
 
 namespace RibbonProject.Views
 {
-    /// <summary>
-    /// Interaction logic for ShellDialogWindow.xaml
-    /// </summary>
     public partial class ShellDialogWindow : MetroWindow, IShellDialogWindow
     {
         public ShellDialogWindow(ShellDialogViewModel viewModel)

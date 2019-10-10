@@ -11,8 +11,8 @@ namespace RibbonProject.Services
 {
     public class WindowManagerService : IWindowManagerService
     {
-        private IServiceProvider _serviceProvider;
-        private IPageService _pageService;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly IPageService _pageService;
 
         public Window MainWindow
             => Application.Current.MainWindow;

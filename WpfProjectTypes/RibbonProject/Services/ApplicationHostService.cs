@@ -9,17 +9,17 @@ namespace RibbonProject.Services
 {
     internal class ApplicationHostService : IHostedService
     {
-        private INavigationService _navigationService;
-        private IThemeSelectorService _themeSelectorService;
-        private IPersistAndRestoreService _persistAndRestoreService;
-        private IShellWindow _shellWindow;
+        private readonly INavigationService _navigationService;
+        private readonly IThemeSelectorService _themeSelectorService;
+        private readonly IPersistAndRestoreService _persistAndRestoreService;
+        private readonly IShellWindow _shellWindow;
 
-        public ApplicationHostService(IThemeSelectorService themeSelectorService, IPersistAndRestoreService persistAndRestoreService, INavigationService navigationService, IRightPaneService rightPaneService, IShellWindow shellWindow)
+        public ApplicationHostService(INavigationService navigationService, IThemeSelectorService themeSelectorService, IPersistAndRestoreService persistAndRestoreService, IRightPaneService rightPaneService, IShellWindow shellWindow)
         {
+            _navigationService = navigationService;
             _themeSelectorService = themeSelectorService;
             _persistAndRestoreService = persistAndRestoreService;
             _shellWindow = shellWindow;
-            _navigationService = navigationService;
             _navigationService.Initialize(_shellWindow.GetNavigationFrame());
             var behavior = _shellWindow.GetRibbonTabsBehavior();
             behavior.Initialize(_navigationService);

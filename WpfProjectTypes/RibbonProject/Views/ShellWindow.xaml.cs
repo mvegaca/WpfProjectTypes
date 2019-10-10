@@ -10,9 +10,6 @@ using RibbonProject.ViewModels;
 
 namespace RibbonProject.Views
 {
-    /// <summary>
-    /// Interaction logic for ShellWindow.xaml.
-    /// </summary>
     public partial class ShellWindow : MetroWindow, IShellWindow
     {
         private RibbonTitleBar _titleBar;
