@@ -18,7 +18,6 @@ namespace BlankProject.Services
         {
             _serviceProvider = serviceProvider;
             Configure<MainViewModel, MainPage>();
-            Configure<BlankViewModel, BlankPage>();
             Configure<SettingsViewModel, SettingsPage>();
         }
 

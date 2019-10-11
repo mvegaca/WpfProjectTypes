@@ -59,8 +59,8 @@ namespace BlankProject
             services.AddTransient<MainViewModel>();
             services.AddTransient<MainPage>();
 
-            services.AddTransient<BlankViewModel>();
-            services.AddTransient<BlankPage>();
+            services.AddTransient<SettingsViewModel>();
+            services.AddTransient<SettingsPage>();
 
             // Configuration
             services.Configure<AppConfig>(context.Configuration.GetSection(nameof(AppConfig)));
