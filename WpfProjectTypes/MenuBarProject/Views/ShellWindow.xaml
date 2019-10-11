@@ -8,6 +8,19 @@
     Style="{StaticResource MetroWindow}"
     mc:Ignorable="d"
     Title="MenuBarProject">
+    <controls:MetroWindow.LeftWindowCommands>
+        <controls:WindowCommands>
+            <Button
+                Foreground="White"
+                Width="{Binding ElementName=hamburgerMenu, Path=CompactPaneLength}"
+                Command="{Binding GoBackCommand}">
+                <TextBlock
+                    Text="&#xE72B;"
+                    FontSize="14"
+                    FontFamily="Segoe MDL2 Assets" />
+            </Button>
+        </controls:WindowCommands>
+    </controls:MetroWindow.LeftWindowCommands>
     <controls:MetroWindow.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -21,10 +34,11 @@
                     <MenuItem Header="Exit" Command="{Binding MenuFileExitCommand}" />
                 </MenuItem>
                 <MenuItem Header="Views">
-                    <MenuItem Header="Main" Command="{Binding MenuViewsMainCommand}" CommandParameter="MenuBarProject.ViewModels.MainViewModel" />
-                    <MenuItem Header="Blank1" Command="{Binding MenuViewsBlank1Command}" CommandParameter="MenuBarProject.ViewModels.Blank1ViewModel" />
-                    <MenuItem Header="Blank2 (New Window)" Command="{Binding MenuViewsBlank2Command}" CommandParameter="MenuBarProject.ViewModels.Blank2ViewModel" />
-                    <MenuItem Header="Blank3 (Dialog)" Command="{Binding MenuViewsBlank3Command}" CommandParameter="MenuBarProject.ViewModels.Blank3ViewModel" />
+                    <MenuItem Header="Main (Navigate)" Command="{Binding MenuViewsMainCommand}" CommandParameter="MenuBarProject.ViewModels.MainViewModel" />
+                    <MenuItem Header="Blank1 (Navigate)" Command="{Binding MenuViewsBlank1Command}" CommandParameter="MenuBarProject.ViewModels.Blank1ViewModel" />
+                    <MenuItem Header="Blank2 (Update View)" Command="{Binding MenuViewsBlank2Command}" CommandParameter="MenuBarProject.ViewModels.Blank2ViewModel" />
+                    <MenuItem Header="Blank3 (New Window)" Command="{Binding MenuViewsBlank3Command}" CommandParameter="MenuBarProject.ViewModels.Blank3ViewModel" />
+                    <MenuItem Header="Blank4 (Dialog)" Command="{Binding MenuViewsBlank4Command}" CommandParameter="MenuBarProject.ViewModels.Blank4ViewModel" />
                 </MenuItem>
             </Menu>
             <controls:SplitView

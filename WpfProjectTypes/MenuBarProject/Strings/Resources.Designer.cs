@@ -88,6 +88,15 @@ namespace MenuBarProject.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Blank 4.
+        /// </summary>
+        public static string Blank4PageTitle {
+            get {
+                return ResourceManager.GetString("Blank4PageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main.
         /// </summary>
         public static string MainPageTitle {

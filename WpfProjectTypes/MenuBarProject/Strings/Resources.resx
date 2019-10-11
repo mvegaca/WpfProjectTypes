@@ -126,6 +126,9 @@
   <data name="Blank3PageTitle" xml:space="preserve">
     <value>Blank 3</value>
   </data>
+  <data name="Blank4PageTitle" xml:space="preserve">
+    <value>Blank 4</value>
+  </data>
   <data name="MainPageTitle" xml:space="preserve">
     <value>Main</value>
   </data>

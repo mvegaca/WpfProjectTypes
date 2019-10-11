@@ -72,6 +72,9 @@ namespace MenuBarProject
             services.AddTransient<Blank3ViewModel>();
             services.AddTransient<Blank3Page>();
 
+            services.AddTransient<Blank4ViewModel>();
+            services.AddTransient<Blank4Page>();
+
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SettingsPage>();
 

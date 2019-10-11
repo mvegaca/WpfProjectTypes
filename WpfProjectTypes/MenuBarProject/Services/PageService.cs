@@ -21,6 +21,7 @@ namespace MenuBarProject.Services
             Configure<Blank1ViewModel, Blank1Page>();
             Configure<Blank2ViewModel, Blank2Page>();
             Configure<Blank3ViewModel, Blank3Page>();
+            Configure<Blank4ViewModel, Blank4Page>();
             Configure<SettingsViewModel, SettingsPage>();
         }
 
