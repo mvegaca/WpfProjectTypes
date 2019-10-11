@@ -63,9 +63,6 @@ namespace RibbonProject
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<MainPage>();
 
-            services.AddSingleton<SecondaryViewModel>();
-            services.AddSingleton<SecondaryPage>();
-
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SettingsPage>();
 

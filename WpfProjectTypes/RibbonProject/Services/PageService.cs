@@ -18,7 +18,6 @@ namespace RibbonProject.Services
         {
             _serviceProvider = serviceProvider;
             Configure<MainViewModel, MainPage>();
-            Configure<SecondaryViewModel, SecondaryPage>();
             Configure<SettingsViewModel, SettingsPage>();
         }
 

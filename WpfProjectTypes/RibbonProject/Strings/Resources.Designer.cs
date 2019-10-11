@@ -106,33 +106,6 @@ namespace RibbonProject.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Secondary 1.
-        /// </summary>
-        public static string SecondaryPageRibbonTab1Header {
-            get {
-                return ResourceManager.GetString("SecondaryPageRibbonTab1Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Secondary 2.
-        /// </summary>
-        public static string SecondaryPageRibbonTab2Header {
-            get {
-                return ResourceManager.GetString("SecondaryPageRibbonTab2Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Secondary.
-        /// </summary>
-        public static string SecondaryPageTitle {
-            get {
-                return ResourceManager.GetString("SecondaryPageTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Settings page placeholder text.  Your app description goes here..
         /// </summary>
         public static string SettingsPageAboutText {
