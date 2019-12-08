@@ -1,4 +1,4 @@
-<controls:MetroWindow
+﻿<controls:MetroWindow
     x:Class="RibbonProject.Views.ShellWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -51,7 +51,8 @@
                 <!--Tabs-->
                 <Fluent:RibbonTabItem
                     Fluent:KeyTip="A"
-                    Header="{x:Static strings:Resources.ShellPageRibbonTabHomeHeader}">
+                    Header="{x:Static strings:Resources.ShellPageRibbonTabHomeHeader}"
+                    behaviors:RibbonTabsBehavior.IsHomeTab="True">
                     <Fluent:RibbonGroupBox
                         State="Middle"
                         MinWidth="150"
