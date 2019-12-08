@@ -10,16 +10,31 @@ using RibbonProject.ViewModels;
 
 namespace RibbonProject.Views
 {
-    public partial class ShellWindow : MetroWindow, IShellWindow
+    public partial class ShellWindow : MetroWindow, IShellWindow, IRibbonWindow
     {
-        private RibbonTitleBar _titleBar;
-
         public ShellWindow(ShellWindowViewModel viewModel, IPageService pageService)
         {
             InitializeComponent();
             DataContext = viewModel;
             navigationBehavior.Initialize(pageService);
         }
+
+        /// <summary>
+        /// Gets ribbon titlebar.
+        /// </summary>
+        public RibbonTitleBar TitleBar
+        {
+            get => (RibbonTitleBar)GetValue(TitleBarProperty);
+            private set => SetValue(TitleBarPropertyKey, value);
+        }
+
+        // ReSharper disable once InconsistentNaming
+        private static readonly DependencyPropertyKey TitleBarPropertyKey = DependencyProperty.RegisterReadOnly(nameof(TitleBar), typeof(RibbonTitleBar), typeof(ShellWindow), new PropertyMetadata());
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="TitleBar"/>.
+        /// </summary>
+        public static readonly DependencyProperty TitleBarProperty = TitleBarPropertyKey.DependencyProperty;
 
         public Frame GetNavigationFrame()
             => shellFrame;
@@ -38,9 +53,9 @@ namespace RibbonProject.Views
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            _titleBar = this.FindChild<RibbonTitleBar>("RibbonTitleBar");
-            _titleBar.InvalidateArrange();
-            _titleBar.UpdateLayout();
+            TitleBar = this.FindChild<RibbonTitleBar>("RibbonTitleBar");
+            TitleBar.InvalidateArrange();
+            TitleBar.UpdateLayout();
         }
     }
 }
