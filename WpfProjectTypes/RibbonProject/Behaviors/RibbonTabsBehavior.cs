@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -47,7 +47,8 @@ namespace RibbonProject.Behaviors
         private void OnNavigated(object sender, string e)
         {
             var frame = sender as Frame;
-            if (frame.Content is Page page)
+            if (frame != null
+                && frame.Content is Page page)
             {
                 UpdateTabs(page);
             }
