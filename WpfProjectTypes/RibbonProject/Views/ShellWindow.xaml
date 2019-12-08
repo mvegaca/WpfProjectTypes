@@ -53,15 +53,9 @@
                     Fluent:KeyTip="A"
                     Header="{x:Static strings:Resources.ShellPageRibbonTabHomeHeader}">
                     <Fluent:RibbonGroupBox
-                        State="Large"
-                        MinWidth="150"
-                        Header="{x:Static strings:Resources.ShellPageRibbonHomeGroupCommon1Header}">
-                    </Fluent:RibbonGroupBox>
-                    <Fluent:RibbonGroupBox
                         State="Middle"
                         MinWidth="150"
-                        Header="{x:Static strings:Resources.ShellPageRibbonHomeGroupCommon2Header}">
-                    </Fluent:RibbonGroupBox>
+                        Header="{x:Static strings:Resources.MainPageRibbonHomeGroup1Header}" />
                 </Fluent:RibbonTabItem>
             </Fluent:Ribbon>
             <controls:SplitView
