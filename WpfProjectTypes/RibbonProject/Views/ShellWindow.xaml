@@ -33,7 +33,7 @@
                 <!--Backstage-->
                 <Fluent:Ribbon.Menu>
                     <Fluent:Backstage UseHighestAvailableAdornerLayer="False">
-                        <Fluent:BackstageTabControl x:Name="backstageTabControl">
+                        <Fluent:BackstageTabControl x:Name="backstageTabControl" SelectedContentMargin="0">
                             <i:Interaction.Behaviors>
                                 <behaviors:BackstageTabNavigationBehavior x:Name="navigationBehavior" />
                             </i:Interaction.Behaviors>
@@ -51,17 +51,12 @@
                 <!--Tabs-->
                 <Fluent:RibbonTabItem
                     Fluent:KeyTip="A"
-                    Header="{x:Static strings:Resources.ShellPageRibbonTabHomeHeader}">
-                    <Fluent:RibbonGroupBox
-                        State="Large"
-                        MinWidth="150"
-                        Header="{x:Static strings:Resources.ShellPageRibbonHomeGroupCommon1Header}">
-                    </Fluent:RibbonGroupBox>
+                    Header="{x:Static strings:Resources.ShellPageRibbonTabHomeHeader}"
+                    behaviors:RibbonTabsBehavior.IsHomeTab="True">
                     <Fluent:RibbonGroupBox
                         State="Middle"
                         MinWidth="150"
-                        Header="{x:Static strings:Resources.ShellPageRibbonHomeGroupCommon2Header}">
-                    </Fluent:RibbonGroupBox>
+                        Header="{x:Static strings:Resources.MainPageRibbonHomeGroup1Header}" />
                 </Fluent:RibbonTabItem>
             </Fluent:Ribbon>
             <controls:SplitView
